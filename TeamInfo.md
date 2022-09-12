@@ -6,14 +6,14 @@
 | ----------- | ---------------------- |
 | TeamID      |        Team-016        |
 | TeamName    |        spongebob       |
-| Captain     |       Abdu Alawini     |
-| Captain     |  alawini@illinois.edu  |
+| Captain     |       Haifan Wu        |
+| Captain     |  haifanw2@illinois.edu  |
 | Member1     |        Kevin Pei       |
-| Member1     |   kevin2@illinois.edu  |
+| Member1     |   kz8@illinois.edu  |
 | Member2     |                        |
-| Member2     |                        |
+| Member2     |            yifugao2@illinois.edu            |
 | Member3     |                        |
-| Member3     |                        |
+| Member3     |            yw81@illinois.edu            |
 
 ## Project Information
 
