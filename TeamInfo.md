@@ -8,7 +8,7 @@
 | TeamName    |        spongebob       |
 | Captain     |       Haifan Wu        |
 | Captain     |  haifanw2@illinois.edu  |
-| Member1     |        Kevin Pei       |
+| Member1     |        Kanghong Zhao       |
 | Member1     |   kz8@illinois.edu  |
 | Member2     |                        |
 | Member2     |            yifugao2@illinois.edu            |
