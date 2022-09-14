@@ -10,7 +10,7 @@
 | Captain     |  haifanw2@illinois.edu  |
 | Member1     |        Kanghong Zhao       |
 | Member1     |   kz8@illinois.edu  |
-| Member2     |                        |
+| Member2     |            Yifu Gao            |
 | Member2     |            yifugao2@illinois.edu            |
 | Member3     |                        |
 | Member3     |            yw81@illinois.edu            |
