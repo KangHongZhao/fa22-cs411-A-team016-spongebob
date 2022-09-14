@@ -12,7 +12,7 @@
 | Member1     |   kz8@illinois.edu  |
 | Member2     |            Yifu Gao            |
 | Member2     |            yifugao2@illinois.edu            |
-| Member3     |                        |
+| Member3     |            Yiming Wang            |
 | Member3     |            yw81@illinois.edu            |
 
 ## Project Information
