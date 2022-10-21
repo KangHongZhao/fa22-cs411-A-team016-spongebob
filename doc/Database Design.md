@@ -24,12 +24,25 @@ Above is the latest version of DDL, this part will look a little bit different f
 
 ## Tables looklike
 ### CompanyInfo
-
+![CompanyInfo](https://github.com/cs411-alawini/fa22-cs411-A-team016-spongebob/blob/main/doc/images/show_company.png)
 ### Favorites
+![Favorites](https://github.com/cs411-alawini/fa22-cs411-A-team016-spongebob/blob/main/doc/images/show_favorites.png)
 ### Jobs
+![Jobs](https://github.com/cs411-alawini/fa22-cs411-A-team016-spongebob/blob/main/doc/images/show_jobs.png)
 ### Locations
+![Locations](https://github.com/cs411-alawini/fa22-cs411-A-team016-spongebob/blob/main/doc/images/show_locations.png)
 ### Releases
+![Releases](https://github.com/cs411-alawini/fa22-cs411-A-team016-spongebob/blob/main/doc/images/show_releases.png)
 ### TempRanks
+![TempRanks](https://github.com/cs411-alawini/fa22-cs411-A-team016-spongebob/blob/main/doc/images/show_tempranks.png)
 ### UserInfos
-
+![UserInfos](https://github.com/cs411-alawini/fa22-cs411-A-team016-spongebob/blob/main/doc/images/show_userinfos.png)
 ## Tables with at least 1000 records
+All tables we created have more than 1000 records.
+![CompanyInfo](https://github.com/cs411-alawini/fa22-cs411-A-team016-spongebob/blob/main/doc/images/num_company.png)
+![Favorites](https://github.com/cs411-alawini/fa22-cs411-A-team016-spongebob/blob/main/doc/images/num_favorites.png)
+![Jobs](https://github.com/cs411-alawini/fa22-cs411-A-team016-spongebob/blob/main/doc/images/num_jobs.png)
+![Locations](https://github.com/cs411-alawini/fa22-cs411-A-team016-spongebob/blob/main/doc/images/num_locations.png)
+![Releases](https://github.com/cs411-alawini/fa22-cs411-A-team016-spongebob/blob/main/doc/images/num_releases.png)
+![TempRanks](https://github.com/cs411-alawini/fa22-cs411-A-team016-spongebob/blob/main/doc/images/num_tempranks.png)
+![UserInfos](https://github.com/cs411-alawini/fa22-cs411-A-team016-spongebob/blob/main/doc/images/num_userinfos.png)
