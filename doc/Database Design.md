@@ -20,4 +20,16 @@ create Table Jobs(JobId INT primary key AUTO_INCREMENT NOT NULL, JobTitle VARCHA
 
 create Table Releases(CompanyID INT REFERENCES CompanyInfos(CompanyID), JobId INT REFERENCES jobs(JobID),  primary key (JobId, CompanyID));
 ~~~
-Above is the latest version of DDL, this part will look a little bit different from the
+Above is the latest version of DDL, this part will look a little bit different from the relational schema in Stage 2 in that, after we get the true data, we find that the length of some strings is not enough.
+
+## Tables looklike
+### CompanyInfo
+
+### Favorites
+### Jobs
+### Locations
+### Releases
+### TempRanks
+### UserInfos
+
+## Tables with at least 1000 records
