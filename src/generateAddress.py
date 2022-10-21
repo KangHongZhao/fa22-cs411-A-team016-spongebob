@@ -16,6 +16,7 @@ def processJobTitle( ori:str):
             ori = ori.split(pat)[0]
     ori =  "".join(ori.split(r"â€\“"))
     ori.replace("â€", "")
+    ori=ori.lower()
     return ori
 
 with open("src\\accountant.csv" , encoding='utf-8-sig') as file:
