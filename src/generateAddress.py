@@ -15,6 +15,7 @@ def processJobTitle( ori:str):
         if pat in ori:
             ori = ori.split(pat)[0]
     ori =  "".join(ori.split(r"â€\“"))
+    ori.replace("â€", "")
     return ori
 
 with open("src\\accountant.csv" , encoding='utf-8-sig') as file:
@@ -64,9 +65,13 @@ for add in address:
 
 counter = 1
 for job in job_set:
-    print(job)
+    #print(job)
     job_dict[job] = counter
     counter+=1
+
+with open("src\\job_insert.txt", 'w', encoding='utf-8') as file:
+    for key, value in job_dict.items():
+        file.write(f"insert into Jobs values({value}, \" {key}\");\n" )
 
 with open("src\\location_insert.txt", 'w',  encoding='utf-8') as file:
     for  key, value in address_dict.items():
