@@ -39,6 +39,7 @@ Above is the latest version of DDL, this part will look a little bit different f
 ![UserInfos](https://github.com/cs411-alawini/fa22-cs411-A-team016-spongebob/blob/main/doc/images/show_userinfos.png)
 ## Tables with at least 1000 records
 All tables we created have more than 1000 records.
+
 ![CompanyInfo](https://github.com/cs411-alawini/fa22-cs411-A-team016-spongebob/blob/main/doc/images/num_company.png)
 ![Favorites](https://github.com/cs411-alawini/fa22-cs411-A-team016-spongebob/blob/main/doc/images/num_favorites.png)
 ![Jobs](https://github.com/cs411-alawini/fa22-cs411-A-team016-spongebob/blob/main/doc/images/num_jobs.png)
