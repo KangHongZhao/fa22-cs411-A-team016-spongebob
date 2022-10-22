@@ -56,14 +56,14 @@ All tables we created have more than 1000 records.
 ## Indexing Analysis
 ### First  advanced subquery
 ~~~
-SELECT distinct CompanyName, l.Zipcode FROM test1.CompanyInfos as c 
+ (SELECT distinct CompanyName, l.Zipcode FROM test1.CompanyInfos as c 
 left join test1.Locations as l on c.LocationID = l.LocationId
-where Zipcode like "941%"
+where Zipcode like "941%")
 union 
 (
 select distinct c.CompanyName,Zipcode from test1.CompanyInfos as c 
-left join test1.TempRanks as t on c.CompanyId = t.CompanyId natural join Locations
-order by t.Ranking
+left join test1.TempRanks as t on c.CompanyId = t.CompanyId natural join test1.Locations
+where t.Ranking < 100
 )
 limit 15;
 ~~~
