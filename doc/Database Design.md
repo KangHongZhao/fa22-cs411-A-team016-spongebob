@@ -83,9 +83,9 @@ Therefore, we decided to optimize the runtime by selecting Zipcode as our index 
 
 We choose Zipcode first because it will contain infomation related to users geolocation information.
 
-After we setting up this index, we find that actual runtime for all operations above have been lowered which means this index have some effects. 
+After we setting up this index, we find that actual runtime for most of operations above have been lowered which means this index have some effects. However, it almost the same with no index situation. 
 
-The reason why it works maybe because this attribute contains some 
+The reason why it does not have significant influence may be it is the used as the unique key which is not an ideal situation for using index. 
 
 
 
@@ -95,19 +95,21 @@ The reason why it works maybe because this attribute contains some
 
 Then, we want to try whether CompanyName can help improve the runtime because it also contains many information that we need. 
 
-After indexing CompanyName, we find that although the runtime has dropped compared with no indexing situation.
+After indexing CompanyName, we find that although the runtime has dropped compared with no indexing situation but this index's effect is also not so obvious.
 
-So this index's effect is not so obvious. we think it maybe because companyName contain so many unique records in CompanyInfo table so that the keys in index are still large and for each key there are fewer records which is not an ideal situation for using index. 
+we think it maybe because companyName are not used for filter condition so it index will be seldomly make impact.
 
 So, we turn to Ranking attribute because it has more duplicates than CompanyName.
-
 
 
 #### after indexing Ranking 
 
 ![image-20221021194956315](https://github.com/cs411-alawini/fa22-cs411-A-team016-spongebob/blob/main/doc/images/query14.png)
 
-Finally, We chose Ranking because it is the condition we used to filter and there are some duplicates in this attributes. So we want to see whether index can help us improve the query in this part. As a result, we find that the query has been improved grealy. For filter part, we see not only the cost become lower, but actual time also become lower (upper bound from 4.655 to only 0.545). We think it is because using index can help us extracting records that are related to each rankings. Therefore, when we need to search for records within required rankings, it will fastly return corresponding result which finally improve our result. So it is a good idea to choose ranking as our index.
+Finally, We chose Ranking because it is the filter condition of other part of union. So we want to see whether index can help us improve the query in this part. 
+
+As a result, we find that the query has been improved greatly (upper bound : from 0.035 to 0.003). All runtime has been reduced grealy. We think it is because using index can help us extracting records corresponding to each rankings. Therefore, when we need to search for records within required rankings, it will fastly return corresponding result which finally improve our result. So it is a good idea to choose ranking as our index.
+
 
 ### Second Query
 This query is used to get those company and job informations when the Jobtitle is constrained to some specific ones.
