@@ -47,3 +47,22 @@ All tables we created have more than 1000 records.
 ![Releases](https://github.com/cs411-alawini/fa22-cs411-A-team016-spongebob/blob/main/doc/images/num_releases.png)
 ![TempRanks](https://github.com/cs411-alawini/fa22-cs411-A-team016-spongebob/blob/main/doc/images/num_tempranks.png)
 ![UserInfos](https://github.com/cs411-alawini/fa22-cs411-A-team016-spongebob/blob/main/doc/images/num_userinfos.png)
+
+## Indexing Analysis
+
+### Second Query
+This query is used to get thos company and job information when the Jobtitle is constrained to some specific ones.
+~~~
+select CompanyId, CompanyName, count(JobTitle) as numbers
+from CompanyInfos natural join Releases natural join Jobs
+where JobTitle like '%engineer%'
+group by CompanyId；
+~~~
+
+#### Before any indexing
+#### After indexing
+We first use the CompanyId as index to test the performance. And the time used dropped from 1.204 to 1.108.
+
+And we test the second index to try to improve the performance more. This time we choose JobId as another index. However, this time in some cases, we can get a better performance while in other cases we cannot.
+
+The best case is 1.050 as belows.
