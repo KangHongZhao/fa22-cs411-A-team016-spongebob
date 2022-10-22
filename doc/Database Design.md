@@ -60,9 +60,12 @@ group by CompanyId；
 ~~~
 
 #### Before any indexing
+![before](https://github.com/cs411-alawini/fa22-cs411-A-team016-spongebob/blob/main/doc/images/2ndbeforeindex.png)
 #### After indexing
+![before](https://github.com/cs411-alawini/fa22-cs411-A-team016-spongebob/blob/main/doc/images/2ndafter1index.png)
 We first use the CompanyId as index to test the performance. And the time used dropped from 1.204 to 1.108.
 
 And we test the second index to try to improve the performance more. This time we choose JobId as another index. However, this time in some cases, we can get a better performance while in other cases we cannot.
 
 The best case is 1.050 as belows.
+![before](https://github.com/cs411-alawini/fa22-cs411-A-team016-spongebob/blob/main/doc/images/2ndafter2index.png)
