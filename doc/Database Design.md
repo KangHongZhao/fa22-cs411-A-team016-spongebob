@@ -69,7 +69,7 @@ limit 15;
 ~~~
 ####  before indexing (default indexing)
 
-![image-20221021195208953](https://github.com/cs411-alawini/fa22-cs411-A-team016-spongebob/blob/main/doc/images/query11.png)
+![image-20221021195208953](https://github.com/cs411-alawini/fa22-cs411-A-team016-spongebob/blob/main/doc/images/advanced_query_default.png)
 
 Before indexing, after running the EXPLAIN ANALYZE command, we found the runtime was not ideal.
 
@@ -79,7 +79,7 @@ Therefore, we decided to optimize the runtime by selecting Zipcode as our index 
 
 #### after indexing Zipcode
 
-![image-20221021195256651](https://github.com/cs411-alawini/fa22-cs411-A-team016-spongebob/blob/main/doc/images/query12.png)
+![image-20221021195256651](https://github.com/cs411-alawini/fa22-cs411-A-team016-spongebob/blob/main/doc/images/advanced_query1_zip.png)
 
 We choose Zipcode first because it will contain infomation related to users geolocation information.
 
@@ -91,7 +91,7 @@ The reason why it does not have significant influence may be it is the used as t
 
 #### after indexing CompanyName 
 
-![image-20221021200228603](https://github.com/cs411-alawini/fa22-cs411-A-team016-spongebob/blob/main/doc/images/query13.png)
+![image-20221021200228603](https://github.com/cs411-alawini/fa22-cs411-A-team016-spongebob/blob/main/doc/images/advanced_query1_companyname.png)
 
 Then, we want to try whether CompanyName can help improve the runtime because it also contains many information that we need. 
 
@@ -104,7 +104,7 @@ So, we turn to Ranking attribute because it has more duplicates than CompanyName
 
 #### after indexing Ranking 
 
-![image-20221021194956315](https://github.com/cs411-alawini/fa22-cs411-A-team016-spongebob/blob/main/doc/images/query14.png)
+![image-20221021194956315](https://github.com/cs411-alawini/fa22-cs411-A-team016-spongebob/blob/main/doc/images/advanced_query1_ranking.png)
 
 Finally, We chose Ranking because it is the filter condition of other part of union. So we want to see whether index can help us improve the query in this part. 
 
