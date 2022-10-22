@@ -49,6 +49,9 @@ All tables we created have more than 1000 records.
 ![UserInfos](https://github.com/cs411-alawini/fa22-cs411-A-team016-spongebob/blob/main/doc/images/num_userinfos.png)
 
 ## Advanced Query
+### First query
+![1ndquery](https://github.com/cs411-alawini/fa22-cs411-A-team016-spongebob/blob/main/doc/images/advanced_query1.jpg)
+
 
 ### Second query
 ![2ndquery](https://github.com/cs411-alawini/fa22-cs411-A-team016-spongebob/blob/main/doc/images/queryandresult.png)
