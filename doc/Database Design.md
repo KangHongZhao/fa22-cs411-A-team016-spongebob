@@ -64,7 +64,7 @@ limit 15;
 ~~~
 ####  before indexing (default indexing)
 
-![image-20221021195208953](C:\Users\HW\AppData\Roaming\Typora\typora-user-images\image-20221021195208953.png)
+![image-20221021195208953](https://github.com/cs411-alawini/fa22-cs411-A-team016-spongebob/blob/main/doc/images/query11.png)
 
 Before indexing, after running the EXPLAIN ANALYZE command, we found the runtime was not ideal.
 
@@ -74,7 +74,7 @@ Therefore, we decided to optimize the runtime by selecting Zipcode as our index 
 
 #### after indexing Zipcode
 
-![image-20221021195256651](C:\Users\HW\AppData\Roaming\Typora\typora-user-images\image-20221021195256651.png)
+![image-20221021195256651](https://github.com/cs411-alawini/fa22-cs411-A-team016-spongebob/blob/main/doc/images/query12.png)
 
 We choose Zipcode first because it will contain infomation related to users geolocation information.
 
@@ -86,7 +86,7 @@ The reason why it works maybe because this attribute contains some
 
 #### after indexing CompanyName 
 
-![image-20221021200228603](C:\Users\HW\AppData\Roaming\Typora\typora-user-images\image-20221021200228603.png)
+![image-20221021200228603](https://github.com/cs411-alawini/fa22-cs411-A-team016-spongebob/blob/main/doc/images/query13.png)
 
 Then, we want to try whether CompanyName can help improve the runtime because it also contains many information that we need. 
 
@@ -100,7 +100,7 @@ So, we turn to Ranking attribute because it has more duplicates than CompanyName
 
 #### after indexing Ranking 
 
-![image-20221021194956315](C:\Users\HW\AppData\Roaming\Typora\typora-user-images\image-20221021194956315.png)
+![image-20221021194956315](https://github.com/cs411-alawini/fa22-cs411-A-team016-spongebob/blob/main/doc/images/query14.png)
 
 Finally, We chose Ranking because it is the condition we used to filter and there are some duplicates in this attributes. So we want to see whether index can help us improve the query in this part. As a result, we find that the query has been improved grealy. For filter part, we see not only the cost become lower, but actual time also become lower (upper bound from 4.655 to only 0.545). We think it is because using index can help us extracting records that are related to each rankings. Therefore, when we need to search for records within required rankings, it will fastly return corresponding result which finally improve our result. So it is a good idea to choose ranking as our index.
 
