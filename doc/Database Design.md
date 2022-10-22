@@ -48,6 +48,11 @@ All tables we created have more than 1000 records.
 ![TempRanks](https://github.com/cs411-alawini/fa22-cs411-A-team016-spongebob/blob/main/doc/images/num_tempranks.png)
 ![UserInfos](https://github.com/cs411-alawini/fa22-cs411-A-team016-spongebob/blob/main/doc/images/num_userinfos.png)
 
+## Advanced Query
+
+### Second query
+![2ndquery](https://github.com/cs411-alawini/fa22-cs411-A-team016-spongebob/blob/main/doc/images/queryandresult.png)
+
 ## Indexing Analysis
 ### First  advanced subquery
 ~~~
@@ -105,7 +110,7 @@ So, we turn to Ranking attribute because it has more duplicates than CompanyName
 Finally, We chose Ranking because it is the condition we used to filter and there are some duplicates in this attributes. So we want to see whether index can help us improve the query in this part. As a result, we find that the query has been improved grealy. For filter part, we see not only the cost become lower, but actual time also become lower (upper bound from 4.655 to only 0.545). We think it is because using index can help us extracting records that are related to each rankings. Therefore, when we need to search for records within required rankings, it will fastly return corresponding result which finally improve our result. So it is a good idea to choose ranking as our index.
 
 ### Second Query
-This query is used to get thos company and job information when the Jobtitle is constrained to some specific ones.
+This query is used to get those company and job informations when the Jobtitle is constrained to some specific ones.
 ~~~
 select CompanyId, CompanyName, count(JobTitle) as numbers
 from CompanyInfos natural join Releases natural join Jobs
