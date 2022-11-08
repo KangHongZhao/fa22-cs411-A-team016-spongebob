@@ -12,7 +12,7 @@ create Table Locations(LocationId INT AUTO_INCREMENT NOT NULL, Zipcode INT, Stre
 
 create table CompanyInfos(CompanyId INT primary key AUTO_INCREMENT NOT NULL, LocationID INT REFERENCES Locations(LocationID), CompanyName VARCHAR(128)) ;
 
-create table Favorites (FavoriteId INT primary key AUTO_INCREMENT NOT NULL, UserId INT REFERENCES UserInfos(UserId), CompanyId INT REFERENCES CompanyInfos(CompanyId) ) ;
+create table Favorites(FavoriteId INT primary key AUTO_INCREMENT NOT NULL, UserId INT REFERENCES UserInfos(UserId), CompanyId INT REFERENCES CompanyInfos(CompanyId) ) ;
 
 create Table TempRanks(TransactionId INT primary key AUTO_INCREMENT NOT NULL, CompanyId INT REFERENCES CompanyInfos(CompanyID), Ranking INT);
 
