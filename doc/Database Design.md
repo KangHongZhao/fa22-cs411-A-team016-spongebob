@@ -8,7 +8,7 @@ We also develop two advanced SQL and will show their results, including comparsi
 ~~~
 create table UserInfos(UserId int primary key AUTO_INCREMENT NOT NULL, Name VARCHAR(32), Gender CHAR(16), Birth_date DATE, Phone_Number CHAR(10), Email VARCHAR(64) UNIQUE NOT NULL, Password VARCHAR(32) );
 
-create Table Locations( LocationId INT AUTO_INCREMENT NOT NULL, Zipcode INT, Street VARCHAR(64), City VARCHAR(32), State VARCHAR(16), primary key (Zipcode ,Street  dataid ,City , State ) );
+create Table Locations(LocationId INT AUTO_INCREMENT NOT NULL, Zipcode INT, Street VARCHAR(64), City VARCHAR(32), State VARCHAR(16), primary key (Zipcode ,Street  dataid ,City , State ) );
 
 create table CompanyInfos(CompanyId INT primary key AUTO_INCREMENT NOT NULL, LocationID INT REFERENCES Locations(LocationID), CompanyName VARCHAR(128)) ;
 
