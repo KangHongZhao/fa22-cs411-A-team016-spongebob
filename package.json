@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "await": "^0.2.6",
+    "axios": "^1.1.3"
+  }
+}
