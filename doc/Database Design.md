@@ -120,7 +120,7 @@ This query is used to get those company and job informations when the Jobtitle i
 select CompanyId, CompanyName, count(JobTitle) as numbers
 from CompanyInfos natural join Releases natural join Jobs
 where JobTitle like '%engineer%'
-group by CompanyId；
+group by CompanyId;
 ~~~
 
 #### Before any indexing
