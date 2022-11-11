@@ -4,6 +4,7 @@ import Signup from "./components/Signup";
 import Login from "./components/Login";
 import CompanyInfo from "./components/CompanyInfo";
 
+
 function App() {
 	return (
 		<Routes>
