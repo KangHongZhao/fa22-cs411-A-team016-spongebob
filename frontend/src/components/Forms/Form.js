@@ -6,7 +6,7 @@ const { Search } = Input;
 
 export const Form = (props) =>{
     const [input, setInput] = useState("");
-    const {handleSubmit} = props
+    const {handleSubmit, placeholder} = props
 
     const handleChange = ({target}) =>{
         setInput(target.value)
@@ -21,6 +21,6 @@ export const Form = (props) =>{
 
 
     return (
-            <Search placeholder="input search text" onSearch={onSearch} enterButton value={input} onChange={handleChange}/>
+            <Search placeholder={placeholder} onSearch={onSearch} enterButton value={input} onChange={handleChange}/>
     )
 }

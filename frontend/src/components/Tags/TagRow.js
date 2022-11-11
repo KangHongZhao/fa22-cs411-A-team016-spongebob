@@ -1,17 +1,27 @@
 import React from 'react';
 
 
-export const TagRow =({row})=>{
+export const TagRow =({row,deleteCompanyInfo,buttonshowup})=>{
+    const handleDelete = (id) =>{
+        deleteCompanyInfo(id);
+    }
+    // alert(Object.values(row));
+    const vals = [];
+    Object.values(row).forEach(element => {
+        vals.push(element);
+    });
+    
 
     return (
         <tr className='setrow'>
-            <td>{row.companyName}</td>
-            <td>{row.companyId}</td>
-            <td>{row.state}</td>
-            <td>{row.city}</td>
-            <td>{row.street}</td>
-            <td>{row.zipCode}</td>
-            <td>{row.jobTitle}</td>
+            {vals.map(element => (
+                <td>{element}</td>
+            ))}
+           {buttonshowup &&
+            <td>
+                <button onClick={()=>handleDelete(row.companyId)} >Delete</button>
+            </td>
+            }
 
         </tr>
     )

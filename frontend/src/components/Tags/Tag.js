@@ -3,22 +3,26 @@ import {TagRow} from './TagRow';
 
 
 
-export const Tag = ({companyInfo}) =>{
+export const Tag = ({Info,deleteCompanyInfo}) =>{
+    const keys = [];
+    for (const key in Info[0]){
+        keys.push(key);
+        // alert(keys);    
+    }
+    const buttonshowup = keys.includes("state") ? true : false;
+
 
     return (
         <div>
             <table border="1" cellSpacing="5">
             <tr className='setrow'>
-                <th>Company_Name</th>
-                <th>Company_ID</th>
-                <th>State</th>
-                <th>City</th>
-                <th>Street</th>
-                <th>Zipcode</th>
-                <th>Job_Title</th>  
+                {keys.map(key => (
+                    <th>{key}</th>
+                ))}
+                {buttonshowup && <th>Action</th>}
             </tr>
-                {companyInfo.map((tmp) => (
-                    <TagRow row={tmp}/>
+                {Info.map((tmp) => (
+                    <TagRow row={tmp} deleteCompanyInfo={deleteCompanyInfo} buttonshowup={buttonshowup}/>
                 )
                 )}
             </table>            
