@@ -16,27 +16,29 @@ const client = axios.create({
 const CompanyInfo = () =>{
     const [companyInfo, setCompnayInfo] = useState([
         {
-        companyName:"CNA",
-        companyId:1,
-        state:"Illinois",
-        city:"Champaign",
-        street:"708 Sth northe adafahdfuiosdhafiu",
-        zipCode:61820,
-        jobTitle:"SDE"
+        CompanyName:"CNA",
+        CompanyId:1,
+        State:"Illinois",
+        City:"Champaign",
+        Street:"708 Sth northe adafahdfuiosdhafiu",
+        Zipcode:61820,
+        JobTitle:"SDE"
     }
 ]);
     const [zipCompany, setZipCompany] = useState([
         {
-            companyName:"CNA",
-            zipCode:61820
+            CompanyName:"CNA",
+            Zipcode:61820
         }
     ])
 
+
+
     const [jobCompany, setjobCompany] = useState([
         {        
-            companyId: 1,
-            companyName:"CNA",
-            numbers:10
+            CompanyId: 1,
+            CompanyName:"CNA",
+            h1b_counts:10
         }
     ])
 
@@ -54,8 +56,8 @@ if (error) return `Error: ${error.message}`;
             // alert(formdata)
             // alert(`/${formdata}`);
 
-			// const res = await client.get("/test.json");
-            const res = await client.get(`/${formdata}`);
+			const res = await client.get("/test.json");
+            // const res = await client.get(`/search?${formdata}`);
             const temp = [];
             for (const [k,v] of Object.entries(res.data)){
                 temp.push(v);
@@ -85,8 +87,8 @@ if (error) return `Error: ${error.message}`;
             // alert(formdata)
             // alert(`/${formdata}`);
 
-			// const res = await client.get("/test1.json");
-            const res = await client.get(`/${formdata}`);
+			const res = await client.get("/test1.json");
+            // const res = await client.get(`/${formdata}`);
             const temp = [];
             for (const [k,v] of Object.entries(res.data)){
                 temp.push(v);
@@ -116,8 +118,8 @@ if (error) return `Error: ${error.message}`;
             // alert(formdata)
             // alert(`/${formdata}`);
 
-			// const res = await client.get("/test2.json");
-            const res = await client.get(`/${formdata}`);
+			const res = await client.get("/test2.json");
+            // const res = await client.get(`/${formdata}`);
             const temp = [];
             for (const [k,v] of Object.entries(res.data)){
                 temp.push(v);
