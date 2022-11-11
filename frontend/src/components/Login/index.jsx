@@ -51,9 +51,11 @@ const Login = () => {
 						value={data.password}
 					/>
 					{error && <div>{error}</div>}
+					<Link to="/search">
 					<button type="submit">
 						Sign In
 					</button>
+					</Link>
 				</form>
 			</div>
 			<div>
