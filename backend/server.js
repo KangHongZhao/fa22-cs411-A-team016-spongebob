@@ -65,8 +65,8 @@ app.get('/search_success', function(req, res) {
     });
 
 app.get('/login', function(req,res){
-  var user_email = req.body.user_email == null ? "Steve_Greene9510@me.com" : req.body.user_email;
-  var password  = req.body.password  == null? "after change" : req.body.password ;
+  var user_email = req.query.user_email == null ? "Steve_Greene9510@me.com" : decodeURIComponent(req.query.user_email);
+  var password  = req.query.password  == null? "after change" : decodeURIComponent(req.query.password) ;
   
   var sql = `select *
   from UserInfos
@@ -89,6 +89,7 @@ app.get('/login', function(req,res){
   });
 
 app.post('/signup', function(req,res){
+
     var Name  = req.body.Name  == null ? 1 : req.body.Name;
     var Gender  = req.body.Gender  == null ? 1 : req.body.Gender;
     var Birth_date  = req.body.BirthDate == null? 1: req.body.BirthDate;
@@ -118,8 +119,8 @@ app.post('/signup', function(req,res){
 
 
 app.post('/insertFav', function(req,res){
-  var user_id = req.body.UserId  == null ? 1 : req.body.UserId ;
-  var company_id = req.body.CompanyId  == null? 1: req.body.CompanyId ;
+  var user_id = req.query.UserId  == null ? 1 : decodeURIComponent(req.query.UserId) ;
+  var company_id = req.query.CompanyId  == null? 1: decodeURIComponent(req.query.CompanyId) ;
   
   var sql = `insert into Favorites (UserId ,  CompanyId) values ( ${user_id} , ${company_id});`;
   console.log(sql);
@@ -134,6 +135,7 @@ app.post('/insertFav', function(req,res){
 
 app.get('/search_company', function(req, res) {
   var CompanyName = req.query.CompanyName == undefined ? 'apple' : decodeURIComponent (req.query.CompanyName) ;  
+
   var sql = `select companyname, companyid , state , city , street , zipcode, JobTitle  
   	from (CompanyInfos natural join Locations) natural join Releases natural join Jobs
   	where CompanyName like '%${CompanyName}%' 
@@ -151,6 +153,7 @@ console.log(sql);
 
 app.get('/search_zipcode', function(req, res) {
   var zipcode  = req.query.zipcode == undefined? 61801: decodeURIComponent(req.query.zipcode ) ;   
+
   var sql = `
 (
 select distinct c.CompanyName,Zipcode 
@@ -174,16 +177,15 @@ console.log(sql);
     }
     
     res.send( Object.assign({}, result))
-    
-
+  
   });
 });
 
 
 // update
 app.get('/update_password', function(req, res) {
-  var userid = req.body.userid == null ? 2000 : req.body.userid;
-  var new_password = req.body.password == null ? "after change" : req.body.password;
+  var userid = req.query.userid == null ? 2000 : decodeURIComponent(req.query.userid);
+  var new_password = req.query.password == null ? "after change" : decodeURIComponent(req.query.password);
 
   var sql = `UPDATE UserInfos SET Password = '${new_password}' WHERE UserId = '${userid}' `;
 
@@ -218,7 +220,9 @@ connection.query(sql, function(err, result) {
 
 // advanced query II
 app.get('/search_keyword', function(req, res) {
+
   var keyword = req.query.jobtitle == null? "software" : decodeURIComponent(req.query.jobtitle);
+
 
   var sql = 'select max(CompanyId) as CompanyId, CompanyName, count(JobTitle) as H1B_counts ' +
       'from CompanyInfos natural join Releases natural join Jobs ' +
@@ -231,11 +235,8 @@ connection.query(sql, function(err, result) {
     res.send(err)
     return;
   }
-
-  res.send( Object.assign({}, result))
-
-  
-});
+  res.send( Object.assign({}, result));
+  });
 
 });
 
