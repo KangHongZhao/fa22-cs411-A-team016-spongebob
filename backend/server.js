@@ -6,6 +6,7 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var mysql = require('mysql2');
 var path = require('path');
+/*
 var connection = mysql.createConnection({
                 host: cur_host,
                 port:'3306',
@@ -13,9 +14,17 @@ var connection = mysql.createConnection({
                 user: 'root',
                 database: 'test1'
 });
+*/
 
+var localconnection = mysql.createConnection({
+  host: "localhost",
+  user: 'user1',
+  database: 'db1'
+});
+connection = localconnection;
 
 connection.connect;
+
 
 var app = express();
 app.use(cors({
@@ -117,10 +126,27 @@ app.post('/signup', function(req,res){
       })
     });
 
+app.get('/getFav', function (req, res) {
+  var UserId = req.query.UserId  == null ? 1 : decodeURIComponent(req.query.UserId );
+  var sql =` select FavoriteId, UserId, CompanyId 
+  from Favorites 
+  where UserId = ${UserId}
+  order by FavoriteId
+  `
+
+  connection.query(sql, function(err, result){
+    if (err) {
+      res.send(err)
+      return;
+      }
+    res.send(Object.assign({}, result ));
+  })
+})
+
 
 app.post('/insertFav', function(req,res){
-  var user_id = req.query.UserId  == null ? 1 : decodeURIComponent(req.query.UserId) ;
-  var company_id = req.query.CompanyId  == null? 1: decodeURIComponent(req.query.CompanyId) ;
+  var user_id = req.body.UserId  == null ? 1 : req.body.UserId ;
+  var company_id = req.body.CompanyId  == null? 1: req.body.CompanyId ;
   
   var sql = `insert into Favorites (UserId ,  CompanyId) values ( ${user_id} , ${company_id});`;
   console.log(sql);
@@ -159,13 +185,14 @@ app.get('/search_zipcode', function(req, res) {
 select distinct c.CompanyName,Zipcode 
 from CompanyInfos as c 
 left join TempRanks as t on c.CompanyId = t.CompanyId natural join Locations
-where t.Ranking < 100
-limit 3
+where abs((zipcode- ${zipcode} ))<50 order by abs((zipcode- ${zipcode})) asc
+limit 1
 )
 union 
 (SELECT distinct CompanyName, l.Zipcode FROM CompanyInfos as c 
 left join Locations as l on c.LocationID = l.LocationId
-where Zipcode like '%${zipcode}%'
+order by abs(zipcode- ${zipcode}) asc
+limit 10
 )
 ; `;
 
@@ -223,10 +250,9 @@ app.get('/search_keyword', function(req, res) {
 
   var keyword = req.query.jobtitle == null? "software" : decodeURIComponent(req.query.jobtitle);
 
-
   var sql = 'select max(CompanyId) as CompanyId, CompanyName, count(JobTitle) as H1B_counts ' +
       'from CompanyInfos natural join Releases natural join Jobs ' +
-      `where JobTitle like '%${jobtitle}%' ` +
+      `where JobTitle like '%${keyword}%' ` +
       'group by CompanyName limit 100' ;
 
 console.log(sql);
