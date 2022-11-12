@@ -19,7 +19,7 @@ export const TagRow =({row,deleteCompanyInfo,buttonshowup})=>{
             ))}
            {buttonshowup &&
             <td>
-                <button onClick={()=>handleDelete(row.companyId)} >Delete</button>
+                <button onClick={()=>handleDelete(row.companyid)} >Delete</button>
             </td>
             }
 

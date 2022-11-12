@@ -91,19 +91,28 @@ app.get('/login', function(req,res){
 app.post('/signup', function(req,res){
     var Name  = req.body.Name  == null ? 1 : req.body.Name;
     var Gender  = req.body.Gender  == null ? 1 : req.body.Gender;
-    var Birth_date  = req.body.Birth_date == null? 1: req.body.Birth_date;
-    var Phone_Number   = req.body.Phone_Number  == null ? 1 : req.body.Phone_Number;
-    var Email   = req.body.Email  == null ? 1 : req.body.Email;
-    var Password   = req.body.Password  == null ? 1 : req.body.Password ;
+    var Birth_date  = req.body.BirthDate == null? 1: req.body.BirthDate;
+    var Phone_Number   = req.body.PhoneNumber  == null ? 1 : req.body.PhoneNumber;
+    var Email   = req.body.email  == null ? 1 : req.body.email;
+    var Password   = req.body.password  == null ? 1 : req.body.password ;
+    console.log(Name);
+    console.log(Gender);
+    console.log(Birth_date);
+    console.log(Phone_Number);
+    console.log(Email);
+    console.log(Password);
 
-    var sql = `insert into UserInfos (Name ,Gender , Birth_date,Phone_Number, Email, Password ) values ( ${Name} , ${Gender} , ${Birth_date}, ${Phone_Number}, ${Email}, ${Password});`;
+
+    var sql = `insert into UserInfos (Name ,Gender , Birth_date,Phone_Number, Email, Password ) values ( "${Name}" , "${Gender}" , "${Birth_date}", "${Phone_Number}", "${Email}", "${Password}");`;
     console.log(sql);
     connection.query(sql, function(err, result) {
+      // console.log(err);
+
       if (err) {
         res.send(err)
         return;
         }
-        //res.send( Object.assign({}, results[0]); )
+        // res.send( Object.assign({}, results[0]); )
       })
     });
 
@@ -124,8 +133,7 @@ app.post('/insertFav', function(req,res){
   });
 
 app.get('/search_company', function(req, res) {
-  var CompanyName  = req.body.CompanyName == undefined ? 'apple' : req.body.CompanyName ;
-  
+  var CompanyName = req.query.CompanyName == undefined ? 'apple' : decodeURIComponent (req.query.CompanyName) ;  
   var sql = `select companyname, companyid , state , city , street , zipcode, JobTitle  
   	from (CompanyInfos natural join Locations) natural join Releases natural join Jobs
   	where CompanyName like '%${CompanyName}%' 
@@ -142,8 +150,7 @@ console.log(sql);
 });
 
 app.get('/search_zipcode', function(req, res) {
-  var zipcode  = req.body.zipcode == undefined? 61801: req.body.zipcode  ;
-   
+  var zipcode  = req.query.zipcode == undefined? 61801: decodeURIComponent(req.query.zipcode ) ;   
   var sql = `
 (
 select distinct c.CompanyName,Zipcode 
@@ -193,10 +200,10 @@ connection.query(sql, function(err, result) {
 
 // delete
 app.get('/delete_fav', function(req, res) {
-  var favid = req.body.FavoriteId == null? 5002 : req.body.FavoriteId;
+  var favid = req.query.FavoriteId == null? 5002 : decodeURIComponent(req.query.FavoriteId);
 
   var sql = `DELETE FROM Favorites WHERE FavoriteId = '${favid}' `;
-
+ 
 console.log(sql);
 connection.query(sql, function(err, result) {
   if (err) {
@@ -211,11 +218,11 @@ connection.query(sql, function(err, result) {
 
 // advanced query II
 app.get('/search_keyword', function(req, res) {
-  var keyword = req.body.keyword == null? "software" : req.body.keyword;
+  var keyword = req.query.jobtitle == null? "software" : decodeURIComponent(req.query.jobtitle);
 
   var sql = 'select max(CompanyId) as CompanyId, CompanyName, count(JobTitle) as H1B_counts ' +
       'from CompanyInfos natural join Releases natural join Jobs ' +
-      `where JobTitle like '%${keyword}%' ` +
+      `where JobTitle like '%${jobtitle}%' ` +
       'group by CompanyName limit 100' ;
 
 console.log(sql);

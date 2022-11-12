@@ -16,19 +16,26 @@ const client = axios.create({
 const CompanyInfo = () =>{
     const [companyInfo, setCompnayInfo] = useState([
         {
-        CompanyName:"CNA",
-        CompanyId:1,
-        State:"Illinois",
-        City:"Champaign",
-        Street:"708 Sth northe adafahdfuiosdhafiu",
-        Zipcode:61820,
+        // CompanyName:"CNA",
+        // CompanyId:1,
+        // State:"Illinois",
+        // City:"Champaign",
+        // Street:"708 Sth northe adafahdfuiosdhafiu",
+        // Zipcode:61820,
+        // JobTitle:"SDE"
+        companyname:"CNA",
+        companyid:1,
+        state:"Illinois",
+        city:"Champaign",
+        street:"708 Sth northe adafahdfuiosdhafiu",
+        zipcode:61820,
         JobTitle:"SDE"
     }
 ]);
     const [zipCompany, setZipCompany] = useState([
         {
-            CompanyName:"CNA",
-            Zipcode:61820
+            companyname:"CNA",
+            zipcode:61820
         }
     ])
 
@@ -36,8 +43,8 @@ const CompanyInfo = () =>{
 
     const [jobCompany, setjobCompany] = useState([
         {        
-            CompanyId: 1,
-            CompanyName:"CNA",
+            companyId: 1,
+            companyname:"CNA",
             h1b_counts:10
         }
     ])
@@ -58,20 +65,21 @@ if (error) return `Error: ${error.message}`;
 
 			// const res = await client.get("/test.json");
             // const res = await client.get(`/search?${formdata}`);
-            const res = await client.get(`/search_company?${formdata}`);
+            const res = await client.get(`/search_company?CompanyName=${encodeURIComponent(formdata)}`);
             console.log(res.data);
-            alert(res.data);
             const temp = [];
             for (const [k,v] of Object.entries(res.data)){
                 temp.push(v);
             }
             const tmp=[];
-            if (temp.length >5){
-                for (var i  = 0; i < 5; i++){
-                    tmp.push(temp[i]);
-                }
+
+            for (let index = 0; index < Math.min(temp.length, 5); index++) {
+                tmp.push(temp[index]);
+                
             }
+
             setCompnayInfo(tmp);
+            // setCompnayInfo(res.data);
 
 
 		} catch (error) {
@@ -90,18 +98,20 @@ if (error) return `Error: ${error.message}`;
             // alert(formdata)
             // alert(`/${formdata}`);
 
-			const res = await client.get("/test1.json");
-            // const res = await client.get(`/${formdata}`);
+			// const res = await client.get("/test1.json");
+            const res = await client.get(`/search_zipcode?zipcode=${encodeURIComponent(formdata)}`);
+
             const temp = [];
             for (const [k,v] of Object.entries(res.data)){
                 temp.push(v);
             }
             const tmp=[];
-            if (temp.length >5){
-                for (var i  = 0; i < 5; i++){
-                    tmp.push(temp[i]);
-                }
-            }
+
+            for (let index = 0; index < Math.min(temp.length, 5); index++) {
+                tmp.push(temp[index]);
+                
+            }            
+
             setZipCompany(tmp);
 
 
@@ -121,18 +131,19 @@ if (error) return `Error: ${error.message}`;
             // alert(formdata)
             // alert(`/${formdata}`);
 
-			const res = await client.get("/test2.json");
-            // const res = await client.get(`/${formdata}`);
+			// const res = await client.get("/test2.json");
+            const res = await client.get(`/search_keyword?jobtitle=${encodeURIComponent(formdata)}`);
+
             const temp = [];
             for (const [k,v] of Object.entries(res.data)){
                 temp.push(v);
             }
             const tmp=[];
-            if (temp.length >5){
-                for (var i  = 0; i < 5; i++){
-                    tmp.push(temp[i]);
-                }
-            }
+
+            for (let index = 0; index < Math.min(temp.length, 5); index++) {
+                tmp.push(temp[index]);
+                
+            }                  
             setjobCompany(tmp);
 
 
@@ -151,7 +162,9 @@ if (error) return `Error: ${error.message}`;
     const deleteCompanyInfo = async (id) =>{
         try {
             // await client.delete(`/${id}`);
-            const cur= companyInfo.filter(info => info.companyId !== id);
+            alert(id);
+            await client.delete(`/delete_fav?FavoriteId=${encodeURIComponent(id)}`);
+            const cur= companyInfo.filter(info => info.companyid !== id);
             setCompnayInfo(cur);
         } catch (error) {
             
