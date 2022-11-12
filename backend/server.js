@@ -118,7 +118,7 @@ app.post('/insertFav', function(req,res){
   });
 
 app.get('/search_company', function(req, res) {
-  var CompanyName  = req.body.CompanyName == undefined ? 'apple' : req.body.CompanyName ;
+  var CompanyName  = req.query.CompanyName == undefined ? 'apple' : decodeURIComponent (req.body.req.query.CompanyName) ;
   
   var sql = `select companyname, companyid , state , city , street , zipcode, JobTitle  
   	from (CompanyInfos natural join Locations) natural join Releases natural join Jobs
@@ -161,8 +161,7 @@ console.log(sql);
     }
     
     res.send( Object.assign({}, result))
-    
-
+  
   });
 });
 
@@ -218,11 +217,8 @@ connection.query(sql, function(err, result) {
     res.send(err)
     return;
   }
-
-  res.send( Object.assign({}, result))
-
-  
-});
+  res.send( Object.assign({}, result));
+  });
 
 });
 
