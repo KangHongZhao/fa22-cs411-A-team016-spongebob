@@ -154,20 +154,21 @@ console.log(sql);
 app.get('/search_zipcode', function(req, res) {
   var zipcode  = req.query.zipcode == undefined? 61801: decodeURIComponent(req.query.zipcode ) ;   
 
-  var sql = `
-(
-select distinct c.CompanyName,Zipcode 
-from CompanyInfos as c 
-left join TempRanks as t on c.CompanyId = t.CompanyId natural join Locations
-where t.Ranking < 100
-limit 3
-)
-union 
-(SELECT distinct CompanyName, l.Zipcode FROM CompanyInfos as c 
-left join Locations as l on c.LocationID = l.LocationId
-where Zipcode like '%${zipcode}%'
-)
-; `;
+    var sql = `
+  (
+  select distinct c.CompanyName,Zipcode 
+  from CompanyInfos as c 
+  left join TempRanks as t on c.CompanyId = t.CompanyId natural join Locations
+  where abs((zipcode- ${zipcode} ))<50 order by abs((zipcode- ${zipcode})) asc
+  limit 1
+  )
+  union 
+  (SELECT distinct CompanyName, l.Zipcode FROM CompanyInfos as c 
+  left join Locations as l on c.LocationID = l.LocationId
+  order by abs(zipcode- ${zipcode}) asc
+  limit 10
+  )
+  ; `;
 
 console.log(sql);
   connection.query(sql, function(err, result) {
@@ -183,9 +184,9 @@ console.log(sql);
 
 
 // update
-app.get('/update_password', function(req, res) {
-  var userid = req.query.userid == null ? 2000 : decodeURIComponent(req.query.userid);
-  var new_password = req.query.password == null ? "after change" : decodeURIComponent(req.query.password);
+app.post('/update_password', function(req, res) {
+  var userid = req.query.userid == null ? 2000 : decodeURIComponent(req.query.UserId);
+  var new_password = req.query.password == null ? "after change" : decodeURIComponent(req.query.NewPassword);
 
   var sql = `UPDATE UserInfos SET Password = '${new_password}' WHERE UserId = '${userid}' `;
 

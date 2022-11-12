@@ -23,7 +23,7 @@ const Signup = () => {
 		try {
 			const url = "http://localhost:80/signup";
 			const { data: res } = await axios.post(url, data);
-			navigate("/login");
+			navigate("/login?userid=1231");
 			console.log(res.message);
 		} catch (error) {
 			if (

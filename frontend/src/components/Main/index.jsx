@@ -17,7 +17,8 @@ const Main = () => {
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		try {
-			const url = "http://localhost:80/signup";
+			// console.log(data.NewPassword);
+			const url = `http://localhost:80/update_password?UserId=${encodeURIComponent(data.UserId)}&NewPassword=${encodeURIComponent(data.NewPassword)}`;
 			const { data: res } = await axios.post(url, data);
 			navigate("/login");
 			console.log(res.message);
