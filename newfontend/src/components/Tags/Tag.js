@@ -19,8 +19,7 @@ export const Tag = ({Info,deleteCompanyInfo}) =>{
                 {keys.map(key => (
                     <th>{key}</th>
                 ))}
-                {buttonshowup && <th>DELETE</th>}
-                {/* {buttonshowup && <th></th>} */}
+                {buttonshowup && <th>Action</th>}
             </tr>
                 {Info.map((tmp) => (
                     <TagRow row={tmp} deleteCompanyInfo={deleteCompanyInfo} buttonshowup={buttonshowup}/>

@@ -4,12 +4,10 @@ import { Link, useNavigate } from "react-router-dom";
 
 const Signup = () => {
 	const [data, setData] = useState({
-		Name: "",
-		PhoneNumber: "",
-		Gender: "",
+		FirstName: "",
+		LastName: "",
 		email: "",
 		password: "",
-		BirthDate: "",
 	});
 	const [error, setError] = useState("");
 	const navigate = useNavigate();
@@ -21,9 +19,9 @@ const Signup = () => {
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		try {
-			const url = "http://localhost:80/signup";
+			const url = "http://localhost:8080/api/users";
 			const { data: res } = await axios.post(url, data);
-			navigate("/search");
+			navigate("/login");
 			console.log(res.message);
 		} catch (error) {
 			if (
@@ -51,31 +49,17 @@ const Signup = () => {
 					<h3>Create Account</h3>
 					<input
 						type="text"
-						placeholder="Gender"
-						name="Gender"
+						placeholder="First Name"
+						name="FirstName"
 						onChange={handleChange}
-						value={data.Gender}
+						value={data.FirstName}
 					/>
 					<input
 						type="text"
-						placeholder="BirthDate"
-						name="BirthDate"
+						placeholder="Last Name"
+						name="LastName"
 						onChange={handleChange}
-						value={data.BirthDate}
-					/>
-					<input
-						type="text"
-						placeholder="Name"
-						name="Name"
-						onChange={handleChange}
-						value={data.Name}
-					/>
-					<input
-						type="text"
-						placeholder="PhoneNumber"
-						name="PhoneNumber"
-						onChange={handleChange}
-						value={data.PhoneNumber}
+						value={data.LastName}
 					/>
 					<input
 						type="email"

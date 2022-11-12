@@ -122,6 +122,7 @@ app.post('/signup', function(req,res){
         res.send(err)
         return;
         }
+        res.redirect("/signup_success")
         // res.send( Object.assign({}, results[0]); )
       })
     });
@@ -180,23 +181,6 @@ console.log(sql);
 app.get('/search_zipcode', function(req, res) {
   var zipcode  = req.query.zipcode == undefined? 61801: decodeURIComponent(req.query.zipcode ) ;   
 
-<<<<<<< HEAD
-  var sql = `
-(
-select distinct c.CompanyName,Zipcode 
-from CompanyInfos as c 
-left join TempRanks as t on c.CompanyId = t.CompanyId natural join Locations
-where abs((zipcode- ${zipcode} ))<50 order by abs((zipcode- ${zipcode})) asc
-limit 1
-)
-union 
-(SELECT distinct CompanyName, l.Zipcode FROM CompanyInfos as c 
-left join Locations as l on c.LocationID = l.LocationId
-order by abs(zipcode- ${zipcode}) asc
-limit 10
-)
-; `;
-=======
     var sql = `
   (
   select distinct c.CompanyName,Zipcode 
@@ -212,7 +196,6 @@ limit 10
   limit 10
   )
   ; `;
->>>>>>> 87d3390dcdf94a4f3543ef6f3b3dc43b4353c78b
 
 console.log(sql);
   connection.query(sql, function(err, result) {
@@ -229,8 +212,8 @@ console.log(sql);
 
 // update
 app.post('/update_password', function(req, res) {
-  var userid = req.query.userid == null ? 2000 : decodeURIComponent(req.query.UserId);
-  var new_password = req.query.password == null ? "after change" : decodeURIComponent(req.query.NewPassword);
+  var userid = req.query.UserId == null ? 2000 : decodeURIComponent(req.query.UserId);
+  var new_password = req.query.NewPassword == null ? "after change" : decodeURIComponent(req.query.NewPassword);
 
   var sql = `UPDATE UserInfos SET Password = '${new_password}' WHERE UserId = '${userid}' `;
 
@@ -250,6 +233,23 @@ app.get('/delete_fav', function(req, res) {
   var favid = req.query.FavoriteId == null? 5002 : decodeURIComponent(req.query.FavoriteId);
 
   var sql = `DELETE FROM Favorites WHERE FavoriteId = '${favid}' `;
+ 
+console.log(sql);
+connection.query(sql, function(err, result) {
+  if (err) {
+    res.send(err)
+    return;
+  }
+  res.redirect('/delete_success');
+});
+
+});
+
+// delete
+app.post('/delete_company', function(req, res) {
+  var CompanyId = req.query.CompanyId == null? 5002 : decodeURIComponent(req.query.CompanyId);
+
+  var sql = `DELETE FROM CompanyInfos WHERE CompanyId = '${CompanyId}' `;
  
 console.log(sql);
 connection.query(sql, function(err, result) {

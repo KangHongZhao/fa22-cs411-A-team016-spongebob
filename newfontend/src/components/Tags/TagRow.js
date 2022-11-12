@@ -1,5 +1,4 @@
 import React from 'react';
-import {Checkbox} from 'antd';
 
 
 export const TagRow =({row,deleteCompanyInfo,buttonshowup})=>{
@@ -11,9 +10,6 @@ export const TagRow =({row,deleteCompanyInfo,buttonshowup})=>{
     Object.values(row).forEach(element => {
         vals.push(element);
     });
-    const onChange = () =>{
-
-    }
     
 
     return (
@@ -23,8 +19,7 @@ export const TagRow =({row,deleteCompanyInfo,buttonshowup})=>{
             ))}
            {buttonshowup &&
             <td>
-                { <button onClick={()=>handleDelete(row.companyid)} >Delete</button> }
-                {/* {<Checkbox onChange={onChange}/>} */}
+                <button onClick={()=>handleDelete(row.companyId)} >Delete</button>
             </td>
             }
 
