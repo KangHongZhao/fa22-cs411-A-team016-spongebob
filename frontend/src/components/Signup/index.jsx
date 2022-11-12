@@ -4,10 +4,12 @@ import { Link, useNavigate } from "react-router-dom";
 
 const Signup = () => {
 	const [data, setData] = useState({
-		FirstName: "",
-		LastName: "",
+		Name: "",
+		PhoneNumber: "",
+		Gender: "",
 		email: "",
 		password: "",
+		BirthDate: "",
 	});
 	const [error, setError] = useState("");
 	const navigate = useNavigate();
@@ -49,17 +51,31 @@ const Signup = () => {
 					<h3>Create Account</h3>
 					<input
 						type="text"
-						placeholder="First Name"
-						name="FirstName"
+						placeholder="Gender"
+						name="Gender"
 						onChange={handleChange}
-						value={data.FirstName}
+						value={data.Gender}
 					/>
 					<input
 						type="text"
-						placeholder="Last Name"
-						name="LastName"
+						placeholder="BirthDate"
+						name="BirthDate"
 						onChange={handleChange}
-						value={data.LastName}
+						value={data.BirthDate}
+					/>
+					<input
+						type="text"
+						placeholder="Name"
+						name="Name"
+						onChange={handleChange}
+						value={data.Name}
+					/>
+					<input
+						type="text"
+						placeholder="PhoneNumber"
+						name="PhoneNumber"
+						onChange={handleChange}
+						value={data.PhoneNumber}
 					/>
 					<input
 						type="email"

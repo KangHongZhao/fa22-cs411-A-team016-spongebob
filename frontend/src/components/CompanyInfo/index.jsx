@@ -9,7 +9,7 @@ const { Header, Footer, Content } = Layout;
 
 
 const client = axios.create({
-    baseURL: "http://localhost:3000/"
+    baseURL: "http://localhost:80/"
 })
 
 
@@ -56,8 +56,11 @@ if (error) return `Error: ${error.message}`;
             // alert(formdata)
             // alert(`/${formdata}`);
 
-			const res = await client.get("/test.json");
+			// const res = await client.get("/test.json");
             // const res = await client.get(`/search?${formdata}`);
+            const res = await client.get(`/search_company?${formdata}`);
+            console.log(res.data);
+            alert(res.data);
             const temp = [];
             for (const [k,v] of Object.entries(res.data)){
                 temp.push(v);

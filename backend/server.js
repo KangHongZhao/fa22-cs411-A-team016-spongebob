@@ -1,20 +1,26 @@
 //import fetch from 'node-fetch';
 //var fetch  = require("node-fetch");
-var cur_host = 'localhost';
+var cors = require("cors");
+var cur_host = '34.170.249.231';
 var express = require('express');
 var bodyParser = require('body-parser');
 var mysql = require('mysql2');
 var path = require('path');
 var connection = mysql.createConnection({
                 host: cur_host,
-                user: 'user1',
-                database: 'db1'
+                port:'3306',
+                password:'h1b123',
+                user: 'root',
+                database: 'test1'
 });
 
 
 connection.connect;
 
 var app = express();
+app.use(cors({
+  origin: "http://localhost:3000"
+}))
 
 // set up ejs view engine 
 app.set('views', path.join(__dirname, 'views'));
