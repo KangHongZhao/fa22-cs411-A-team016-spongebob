@@ -51,7 +51,7 @@ const Login = () => {
 						value={data.password}
 					/>
 					{error && <div>{error}</div>}
-					<Link to="/search">
+					<Link to="/Main">
 					<button type="submit">
 						Sign In
 					</button>
