@@ -65,8 +65,8 @@ app.get('/search_success', function(req, res) {
     });
 
 app.get('/login', function(req,res){
-  var user_email = req.body.user_email == null ? "Steve_Greene9510@me.com" : req.body.user_email;
-  var password  = req.body.password  == null? "after change" : req.body.password ;
+  var user_email = req.query.user_email == null ? "Steve_Greene9510@me.com" : decodeURIComponent(req.query.user_email);
+  var password  = req.query.password  == null? "after change" : decodeURIComponent(req.query.password) ;
   
   var sql = `select *
   from UserInfos
@@ -89,12 +89,12 @@ app.get('/login', function(req,res){
   });
 
 app.post('/signup', function(req,res){
-    var Name  = req.body.Name  == null ? 1 : req.body.Name;
-    var Gender  = req.body.Gender  == null ? 1 : req.body.Gender;
-    var Birth_date  = req.body.Birth_date == null? 1: req.body.Birth_date;
-    var Phone_Number   = req.body.Phone_Number  == null ? 1 : req.body.Phone_Number;
-    var Email   = req.body.Email  == null ? 1 : req.body.Email;
-    var Password   = req.body.Password  == null ? 1 : req.body.Password ;
+    var Name  = req.query.Name  == null ? 1 : decodeURIComponent(req.query.Name);
+    var Gender  = req.query.Gender  == null ? 1 : decodeURIComponent(req.query.Gender);
+    var Birth_date  = req.query.Birth_date == null? 1: decodeURIComponent(req.query.Birth_date);
+    var Phone_Number   = req.query.Phone_Number  == null ? 1 : decodeURIComponent(req.query.Phone_Number);
+    var Email   = req.query.Email  == null ? 1 : decodeURIComponent(req.query.Email);
+    var Password   = req.query.Password  == null ? 1 : decodeURIComponent(req.query.Password) ;
 
     var sql = `insert into UserInfos (Name ,Gender , Birth_date,Phone_Number, Email, Password ) values ( ${Name} , ${Gender} , ${Birth_date}, ${Phone_Number}, ${Email}, ${Password});`;
     console.log(sql);
@@ -109,8 +109,8 @@ app.post('/signup', function(req,res){
 
 
 app.post('/insertFav', function(req,res){
-  var user_id = req.body.UserId  == null ? 1 : req.body.UserId ;
-  var company_id = req.body.CompanyId  == null? 1: req.body.CompanyId ;
+  var user_id = req.query.UserId  == null ? 1 : decodeURIComponent(req.query.UserId) ;
+  var company_id = req.query.CompanyId  == null? 1: decodeURIComponent(req.query.CompanyId) ;
   
   var sql = `insert into Favorites (UserId ,  CompanyId) values ( ${user_id} , ${company_id});`;
   console.log(sql);
@@ -142,7 +142,7 @@ console.log(sql);
 });
 
 app.get('/search_zipcode', function(req, res) {
-  var zipcode  = req.body.zipcode == undefined? 61801: req.body.zipcode  ;
+  var zipcode  = req.query.zipcode == undefined? 61801: decodeURIComponent(req.query.zipcode ) ;
    
   var sql = `
 (
@@ -174,8 +174,8 @@ console.log(sql);
 
 // update
 app.get('/update_password', function(req, res) {
-  var userid = req.body.userid == null ? 2000 : req.body.userid;
-  var new_password = req.body.password == null ? "after change" : req.body.password;
+  var userid = req.query.userid == null ? 2000 : decodeURIComponent(req.query.userid);
+  var new_password = req.query.password == null ? "after change" : decodeURIComponent(req.query.password);
 
   var sql = `UPDATE UserInfos SET Password = '${new_password}' WHERE UserId = '${userid}' `;
 
@@ -192,7 +192,7 @@ connection.query(sql, function(err, result) {
 
 // delete
 app.get('/delete_fav', function(req, res) {
-  var favid = req.body.FavoriteId == null? 5002 : req.body.FavoriteId;
+  var favid = req.query.FavoriteId == null? 5002 : decodeURIComponent(req.query.FavoriteId);
 
   var sql = `DELETE FROM Favorites WHERE FavoriteId = '${favid}' `;
 
@@ -210,7 +210,7 @@ connection.query(sql, function(err, result) {
 
 // advanced query II
 app.get('/search_keyword', function(req, res) {
-  var keyword = req.body.keyword == null? "software" : req.body.keyword;
+  var keyword = req.query.keyword == null? "software" : decodeURIComponent(req.query.keyword);
 
   var sql = 'select max(CompanyId) as CompanyId, CompanyName, count(JobTitle) as H1B_counts ' +
       'from CompanyInfos natural join Releases natural join Jobs ' +
