@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import './login.css';
 
 const Login = () => {
 	const [data, setData] = useState({ 
@@ -32,10 +33,13 @@ const Login = () => {
 	};
 
 	return (
-		<div>
+		<div className="loginBox">
 			<div>
-				<form onSubmit={handleSubmit}>
-					<h3>Please Login In first</h3>
+				<form className="loginForm" onSubmit={handleSubmit}>
+					<h3 className="title">Login In</h3>
+					<div className="loginInfo">
+					<label>Email Address</label>
+					<br></br>
 					<input
 						type="email"
 						placeholder="Email"
@@ -43,6 +47,10 @@ const Login = () => {
 						onChange={handleChange}
 						value={data.email}
 					/>
+					</div>
+					<div className="loginInfo">
+					<label>Password</label>
+					<br></br>
 					<input
 						type="password"
 						placeholder="Password"
@@ -50,21 +58,17 @@ const Login = () => {
 						onChange={handleChange}
 						value={data.password}
 					/>
+					</div>
 					{error && <div>{error}</div>}
 					<Link to="/Main">
-					<button type="submit">
+					<button type="submit" className="submitbutton">
 						Sign In
 					</button>
 					</Link>
-				</form>
-			</div>
-			<div>
-				<h3>Please sign up here</h3>
-				<Link to="/signup">
-					<button type="button">
-						Sign Up
-					</button>
+				<Link to="/signup" className="signup">
+				<h3>sign up</h3>
 				</Link>
+				</form >
 			</div>
 		</div>
 	);
