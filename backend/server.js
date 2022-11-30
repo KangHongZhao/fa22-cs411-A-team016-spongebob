@@ -20,7 +20,6 @@ var localconnection = mysql.createConnection({
   host: "127.0.0.1",
   port:'3306',
   user: 'root',
-  password:'qe500874112300',
   database: 'test1'
 });
 connection = localconnection;
