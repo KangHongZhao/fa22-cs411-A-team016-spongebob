@@ -17,9 +17,11 @@ var connection = mysql.createConnection({
 */
 
 var localconnection = mysql.createConnection({
-  host: "localhost",
-  user: 'user1',
-  database: 'db1'
+  host: "127.0.0.1",
+  port:'3306',
+  user: 'root',
+  password:'qe500874112300',
+  database: 'test1'
 });
 connection = localconnection;
 
@@ -68,18 +70,17 @@ app.get('/delete_success', function(req, res) {
   res.send({'message': 'Favorite deleted successfully!'});
 });
 
-    // show the result of sql
+// show the result of sql
 app.get('/search_success', function(req, res) {
-      res.send(result);
-    });
+    res.send(result);
+});
 
-app.get('/login', function(req,res){
-  var user_email = req.query.user_email == null ? "Steve_Greene9510@me.com" : decodeURIComponent(req.query.user_email);
-  var password  = req.query.password  == null? "after change" : decodeURIComponent(req.query.password) ;
+app.post('/login', function(req,res){
+  var Email = req.body.email  == null ? 1 : req.body.email;
+  var Password = req.body.password  == null ? 1 : req.body.password;
+  console.log(Email);
   
-  var sql = `select *
-  from UserInfos
-  where Email = "${user_email}" and Password = "${password}"`;
+  var sql = `select * from UserInfos where Email = "${Email}" and Password = "${Password}"`;
   console.log(sql);
   connection.query(sql, function(err, result) {
     if (err) {
@@ -94,7 +95,6 @@ app.get('/login', function(req,res){
         res.redirect("/login_fail");
       }
     })
-      
   });
 
 app.post('/signup', function(req,res){
@@ -181,7 +181,7 @@ console.log(sql);
 app.get('/search_zipcode', function(req, res) {
   var zipcode  = req.query.zipcode == undefined? 61801: decodeURIComponent(req.query.zipcode ) ;   
 
-    var sql = `
+    var sql = `
   (
   select distinct c.CompanyName,Zipcode 
   from CompanyInfos as c 

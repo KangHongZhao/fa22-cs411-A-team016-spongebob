@@ -1,6 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import './login.css';
 
 const Login = () => {
@@ -13,14 +13,19 @@ const Login = () => {
 	const handleChange = ({ currentTarget: input }) => {
 		setData({ ...data, [input.name]: input.value });
 	};
+	const navigate = useNavigate();
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		try {
-			const url = "http://localhost:80/auth";
+			const url = "http://localhost:80/login";
 			const { data: res } = await axios.post(url, data);
-			localStorage.setItem("token", res.data);
-			window.location = "/";
+			if (res.length == 0) {
+				alert("wrong email or password");
+                console.log(res.length);
+			} else {
+				navigate("/Main");
+			}
 		} catch (error) {
 			if (
 				error.response &&
@@ -60,11 +65,9 @@ const Login = () => {
 					/>
 					</div>
 					{error && <div>{error}</div>}
-					<Link to="/Main">
-					<button type="submit" className="submitbutton">
+					<button type="submit" onClick = {Login} className="submitbutton">
 						Sign In
 					</button>
-					</Link>
 				<Link to="/signup" className="signup">
 				<h3>sign up</h3>
 				</Link>
