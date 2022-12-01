@@ -8,6 +8,7 @@
     min-height: 100%;
   }
   */
+
   
   
   .layout {
@@ -41,6 +42,7 @@
     /* background-color: green; */
     flex:1;
     color: azure;
+    font-size: x-large;
 }
 
  .personal{
@@ -48,7 +50,7 @@
     flex:1;
     text-align: right;
     color: aliceblue;
-    /* margin-left: 500px; */
+font-size: x-large;    /* margin-left: 500px; */
 }
 
 
@@ -77,6 +79,8 @@
 
   .footer{
     text-align: center;
+    /* align-items:flex-end ; */
+    /* padding-top: 100px; */
     height: 100px;
     flex:0.2;
     

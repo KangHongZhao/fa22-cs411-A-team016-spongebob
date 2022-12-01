@@ -4,6 +4,7 @@ import Signup from "./components/Signup";
 import Login from "./components/Login";
 import CompanyInfo from "./components/CompanyInfo";
 import Main from "./components/Main";
+// import { FavoriteTab } from "./components/FavoriteTable/FavoriteTable";
 
 
 
@@ -15,6 +16,8 @@ function App() {
 			<Route exact path="/login" element={<><Login/></>}/>
 			<Route path="/signup" exact element={<Signup />} />
 			<Route path="/search" exact element={<CompanyInfo />} />
+			{/* <Route path="/favTab" exact element={<FavoriteTab />} /> */}
+
 		</Routes>
 	);
 }

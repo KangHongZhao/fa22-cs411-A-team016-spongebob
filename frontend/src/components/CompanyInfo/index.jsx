@@ -3,8 +3,10 @@ import axios from 'axios';
 // import {Form1} from "../Forms/Form";
 // import {Tag} from '../Tags/Tag';
 import styles from './index.module.css' 
+import { Link, useNavigate } from "react-router-dom";
 
-import { SearchOutlined } from '@ant-design/icons';
+
+import { SearchOutlined,UserOutlined } from '@ant-design/icons';
 
 import { Layout, Button, Form, Input,Table,Pagination} from 'antd';
 const { Header, Content, Footer } = Layout;
@@ -290,8 +292,10 @@ if (error) return `Error: ${error.message}`;
         <Layout className={styles.layout} customLayout>
           <Header className={styles.header}>
             {/* <div className={styles.logo} /> */}
-            <p className={styles.title}>haha</p>
-            <p className={styles.personal}>back to personal page</p>
+            <p className={styles.title}>H1B Search</p>
+            <Link to="/main">
+            <p className={styles.personal}><UserOutlined /></p>
+				    </Link>
           </Header>
           <Content className={styles.content}>
             <div className={styles.searchbutton}>
@@ -363,8 +367,7 @@ if (error) return `Error: ${error.message}`;
             </div>
           </Content>
           <Footer className={styles.footer}>
-
-            Ant Design ©2018 Created by Ant UED
+              Created by SpongeBob Team
           </Footer>
         </Layout>
       // </div>
