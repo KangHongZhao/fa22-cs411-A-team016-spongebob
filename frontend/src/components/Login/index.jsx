@@ -65,6 +65,8 @@ const Login = () => {
 						Sign Up
 					</button>
 				</Link>
+				{/* <Pagination defaultCurrent={6} total={500}  size={"small"}/> */}
+
 			</div>
 		</div>
 	);

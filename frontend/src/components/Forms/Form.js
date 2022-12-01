@@ -4,7 +4,7 @@ import { Input, Space } from 'antd';
 const { Search } = Input;
 
 
-export const Form = (props) =>{
+export const Form1 = (props) =>{
     const [input, setInput] = useState("");
     const {handleSubmit, placeholder} = props
 
