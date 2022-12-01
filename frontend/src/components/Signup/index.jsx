@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
+import './signup.css';
 
 const Signup = () => {
 	const [data, setData] = useState({
@@ -37,18 +38,12 @@ const Signup = () => {
 	};
 
 	return (
-		<div>
+		<div className="loginBox">
 			<div>
-				<h3>Back to login in</h3>
-				<Link to="/login">
-					<button type="button">
-						Sign in
-					</button>
-				</Link>
-			</div>
-			<div>
-				<form onSubmit={handleSubmit}>
-					<h3>Create Account</h3>
+				<form className="loginForm" onSubmit={handleSubmit}>
+					<h3 className="title">Create Account</h3>
+					<label>Gender</label>
+					<br></br>
 					<input
 						type="text"
 						placeholder="Gender"
@@ -56,6 +51,9 @@ const Signup = () => {
 						onChange={handleChange}
 						value={data.Gender}
 					/>
+					<br></br>
+					<label>Birth Date</label>
+					<br></br>
 					<input
 						type="text"
 						placeholder="BirthDate"
@@ -63,6 +61,9 @@ const Signup = () => {
 						onChange={handleChange}
 						value={data.BirthDate}
 					/>
+					<br></br>
+					<label>Name</label>
+					<br></br>
 					<input
 						type="text"
 						placeholder="Name"
@@ -70,6 +71,9 @@ const Signup = () => {
 						onChange={handleChange}
 						value={data.Name}
 					/>
+					<br></br>
+					<label>Phone Number</label>
+					<br></br>
 					<input
 						type="text"
 						placeholder="PhoneNumber"
@@ -77,6 +81,9 @@ const Signup = () => {
 						onChange={handleChange}
 						value={data.PhoneNumber}
 					/>
+					<br></br>
+					<label>Email Address</label>
+					<br></br>
 					<input
 						type="email"
 						placeholder="Email"
@@ -84,6 +91,9 @@ const Signup = () => {
 						onChange={handleChange}
 						value={data.email}
 					/>
+					<br></br>
+					<label>Password</label>
+					<br></br>
 					<input
 						type="password"
 						placeholder="Password"
@@ -92,9 +102,15 @@ const Signup = () => {
 						value={data.password}
 					/>
 					{error && <div>{error}</div>}
-					<button type="submit">
+					<br></br>
+					<br></br>
+					<button type="submit" className="signup">
 						Sign Up
 					</button>
+				<br></br>
+				<Link to="/login">
+						Sign in
+				</Link>
 				</form>
 			</div>
 		</div>

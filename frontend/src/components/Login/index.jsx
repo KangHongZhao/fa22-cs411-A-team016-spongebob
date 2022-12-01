@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import './login.css';
 
 const Login = () => {
 	const [data, setData] = useState({ 
@@ -12,14 +13,19 @@ const Login = () => {
 	const handleChange = ({ currentTarget: input }) => {
 		setData({ ...data, [input.name]: input.value });
 	};
+	const navigate = useNavigate();
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		try {
-			const url = "http://localhost:80/auth";
+			const url = "http://localhost:80/login";
 			const { data: res } = await axios.post(url, data);
-			localStorage.setItem("token", res.data);
-			window.location = "/";
+			if (res.length == 0) {
+				alert("wrong email or password");
+                console.log(res.length);
+			} else {
+				navigate("/Main");
+			}
 		} catch (error) {
 			if (
 				error.response &&
@@ -32,10 +38,13 @@ const Login = () => {
 	};
 
 	return (
-		<div>
+		<div className="loginBox">
 			<div>
-				<form onSubmit={handleSubmit}>
-					<h3>Please Login In first</h3>
+				<form className="loginForm" onSubmit={handleSubmit}>
+					<h3 className="title">Login In</h3>
+					<div className="loginInfo">
+					<label>Email Address</label>
+					<br></br>
 					<input
 						type="email"
 						placeholder="Email"
@@ -43,6 +52,10 @@ const Login = () => {
 						onChange={handleChange}
 						value={data.email}
 					/>
+					</div>
+					<div className="loginInfo">
+					<label>Password</label>
+					<br></br>
 					<input
 						type="password"
 						placeholder="Password"
@@ -50,23 +63,16 @@ const Login = () => {
 						onChange={handleChange}
 						value={data.password}
 					/>
+					</div>
 					{error && <div>{error}</div>}
-					<Link to="/Main">
-					<button type="submit">
+					<button type="submit" onClick = {Login} className="submitbutton">
 						Sign In
 					</button>
-					</Link>
-				</form>
-			</div>
-			<div>
-				<h3>Please sign up here</h3>
-				<Link to="/signup">
-					<button type="button">
-						Sign Up
-					</button>
+				<Link to="/signup" className="signup">
+				<h3>sign up</h3>
 				</Link>
-				{/* <Pagination defaultCurrent={6} total={500}  size={"small"}/> */}
 
+				</form >
 			</div>
 		</div>
 	);
