@@ -7,7 +7,7 @@ BEGIN
 
 		declare cur CURSOR FOR 
 		(select  CompanyName, count(CompanyName) as num
-		from CompanyInfos natural join Favorites natural join Releases natural join jobs
+		from CompanyInfos natural join Favorites natural join Releases natural join Jobs
 		where JobTitle like CONCAT('%',var_title,'%')
 		group by CompanyName);
 		declare continue HANDLER FOR NOT FOUND SET finished = 1;
