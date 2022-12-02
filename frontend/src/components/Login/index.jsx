@@ -8,6 +8,7 @@ const Login = () => {
 		email: "", 
 		password: "" 
 	});
+
 	const [error, setError] = useState("");
 
 	const handleChange = ({ currentTarget: input }) => {
@@ -20,14 +21,20 @@ const Login = () => {
 		try {
 			const url = "http://localhost:80/login";
 			const { data: res } = await axios.post(url, data);
-			if (res.length == 0) {
-				alert("wrong email or password");
-                console.log(res.length);
+			if (res.length != 0) {
+				localStorage.setItem('UserKey',res[0].UserId);
+				let data = localStorage.getItem('UserKey');
+				console.log(data);
+				//navigate("/Main");
 			} else {
+<<<<<<< HEAD
 				localStorage.setItem("userkey",res[0].UserId);
 				let id = localStorage.getItem("userkey");
 				alert(id)
 				navigate("/Main");
+=======
+				alert("wrong password");
+>>>>>>> c8108b9846482d15dcf78e4499556845c3396174
 			}
 		} catch (error) {
 			if (

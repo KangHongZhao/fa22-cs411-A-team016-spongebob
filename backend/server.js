@@ -20,6 +20,7 @@ var localconnection = mysql.createConnection({
   host: "127.0.0.1",
   port:'3306',
   user: 'root',
+  password: 'qe500874112300',
   database: 'test1'
 });
 connection = localconnection;
@@ -86,12 +87,12 @@ app.post('/login', function(req,res){
       res.send(err)
       return;
       }
-      var sql_res = Object.assign({}, result);
+      var sql_res = result;
       if (sql_res.length != 0) 
       {
         res.send(sql_res); 
       }else{
-        res.redirect("/login_fail");
+        res.send("");
       }
     })
   });
