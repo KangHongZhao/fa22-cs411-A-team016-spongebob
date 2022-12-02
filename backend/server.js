@@ -17,10 +17,10 @@ var connection = mysql.createConnection({
 */
 
 var localconnection = mysql.createConnection({
-  host: "127.0.0.1",
+  host: "34.170.249.231",
   port:'3306',
   user: 'root',
-  password: 'qe500874112300',
+  password: 'h1b123',
   database: 'test1'
 });
 connection = localconnection;
@@ -146,9 +146,8 @@ app.get('/getFav', function (req, res) {
 
 
 app.post('/insertFav', function(req,res){
-  var user_id = req.body.UserId  == null ? 1 : req.body.UserId ;
-  var company_id = req.body.CompanyId  == null? 1: req.body.CompanyId ;
-  
+  var user_id = req.query.UserId  == null ? 1 : decodeURIComponent(req.query.UserId) ;
+  var company_id = req.query.CompanyId  == null? 1: decodeURIComponent(req.query.CompanyId) ;
   var sql = `insert into Favorites (UserId ,  CompanyId) values ( ${user_id} , ${company_id});`;
   console.log(sql);
   connection.query(sql, function(err, result) {
@@ -268,7 +267,11 @@ app.get('/search', function(req, res) {
   var zipcode = req.query.zipcode  == undefined ? 'apple' : decodeURIComponent (req.query.zipcode ) ;  
   var jobtitle= req.query.jobtitle == undefined ? 'apple' : decodeURIComponent (req.query.jobtitle) ;  
   
-  var sql = ``
+  
+  var sql = `select companyname, companyid , state , city , street , zipcode, JobTitle  
+  from (CompanyInfos natural join Locations) natural join Releases natural join Jobs
+  where CompanyName like '%${CompanyName}%' 
+  limit 100`
 console.log(sql);
   connection.query(sql, function(err, result) {
     if (err) {

@@ -7,7 +7,7 @@ const client = axios.create({
   baseURL: "http://localhost:80/"
 })
 
-export const FavoriteTab = () =>{
+export const FavoriteTab = (props) =>{
     useState([]);
 
     const [selectedRowKeys, setSelectedRowKeys] = useState([]);
@@ -65,47 +65,7 @@ export const FavoriteTab = () =>{
 		},
 	  ];
 
-	  const [companyInfo, setCompnayInfo] = useState([
-        {
-          key:1,
-        companyname:"CNA",
-        companyid:0,
-        state:"Illinois",
-        city:"Champaign",
-        street:"708 Sth northe adafahdfuiosdhafiu",
-        zipcode:61820,
-        JobTitle:"SDE"
-        },
-        {
-          key:2,
-          companyname:"CNA",
-          companyid:1,
-          state:"Illinois",
-          city:"Champaign",
-          street:"708 Sth northe adafahdfuiosdhafiu",
-          zipcode:61820,
-          JobTitle:"SDE"
-          },
-          {
-            key:3,
-            companyname:"CNA",
-            companyid:2,
-            state:"Illinois",
-            city:"Champaign",
-            street:"708 Sth northe adafahdfuiosdhafiu",
-            zipcode:61820,
-            JobTitle:"SDE"
-        },
-        {
-          key:4,
-          companyname:"CNA",
-          companyid:3,
-          state:"Illinois",
-          city:"Champaign",
-          street:"708 Sth northe adafahdfuiosdhafiu",
-          zipcode:61820,
-          JobTitle:"SDE"
-        }   
+	  const [companyInfo, setCompnayInfo] = useState([  
 ]);
 
 const start = () => {
@@ -141,7 +101,8 @@ const start = () => {
         // await client.delete(`/${id}`);
 
         // alert(selectedRowKeys);
-        let userid = localStorage.getItem("");
+        let userid = localStorage.getItem("UserKey");
+        console.log(userid);
         
 
         // const cur= companyInfo.filter(info => info.key !== );

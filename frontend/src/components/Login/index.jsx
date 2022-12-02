@@ -25,16 +25,11 @@ const Login = () => {
 				localStorage.setItem('UserKey',res[0].UserId);
 				let data = localStorage.getItem('UserKey');
 				console.log(data);
-				//navigate("/Main");
+				navigate("/search");
 			} else {
-<<<<<<< HEAD
-				localStorage.setItem("userkey",res[0].UserId);
-				let id = localStorage.getItem("userkey");
-				alert(id)
-				navigate("/Main");
-=======
+
+				
 				alert("wrong password");
->>>>>>> c8108b9846482d15dcf78e4499556845c3396174
 			}
 		} catch (error) {
 			if (

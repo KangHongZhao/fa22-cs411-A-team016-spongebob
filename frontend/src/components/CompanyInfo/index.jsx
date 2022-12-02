@@ -269,12 +269,19 @@ if (error) return `Error: ${error.message}`;
 
       const addFavorite = async ()=>{
         alert(selectedRowKeys);
-        let userid = localStorage.getItem("");
+        let userid = localStorage.getItem("UserKey");
+        let id = companyInfo;
+        console.log(id);
         for (let index in selectedRowKeys){
-          let id = companyInfo.filter(item => item.key === selectedRowKeys[index]).companyid;
-          await client.post(`/insertFav?CompanyId=${encodeURIComponent(id)}&UserId=${encodeURIComponent(userid)}`);
-          // cur = companyInfo.filter(item => item.key !== selectedRowKeys[index])
+           id = companyInfo.filter(item => item.key !== selectedRowKeys[index])
         }
+        for ( let index in id ){
+          let  idx = id[index].companyid
+          await client.post(`/insertFav?CompanyId=${encodeURIComponent(idx)}&UserId=${encodeURIComponent(userid)}`);
+
+        }
+        // for (int  )
+
         // alert(a)
       }
 
@@ -291,8 +298,12 @@ if (error) return `Error: ${error.message}`;
 
         const res = await client.get(`/search?CompanyName=${encodeURIComponent(CompanyName)}&zipcode=${encodeURIComponent(zipcode)}&jobtitle=${encodeURIComponent(jobtitle)}`);
         console.log(res.data);
+        console.log(localStorage.getItem("UserKey"))
         const temp = [];
+        let i = 1;
         for (const [k,v] of Object.entries(res.data)){
+            v['key'] = i;
+            i +=1;
             temp.push(v);
         }
         const tmp=[];
