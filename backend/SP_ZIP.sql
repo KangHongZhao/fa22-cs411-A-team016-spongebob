@@ -13,18 +13,15 @@ BEGIN
 	
 	DECLARE continue HANDLER FOR NOT FOUND SET finished = 1;
 	
-	if not exists (SELECT table_name 
-		FROM INFORMATION_SCHEMA.TABLES
-	   WHERE table_schema = 'test1'
-		 AND table_name LIKE 'res_Table')
-	then
-		CREATE TABLE res_Table(
+	drop table if exists res_Table;
+
+	CREATE TABLE res_Table(
 		ResId INT AUTO_INCREMENT NOT NULL, 
 		CompanyName VARCHAR(128),
 		Fav_Num INT,
 		PRIMARY KEY (ResId)
 		);
-	end if;
+
 	OPEN cur;
 
 	REPEAT
