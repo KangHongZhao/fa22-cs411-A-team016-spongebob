@@ -29,8 +29,20 @@ connection.connect;
 
 
 var app = express();
+
 app.use(cors({
-  origin: "http://localhost:3000"
+  methods: 'GET,POST,PUT',
+  exposedHeaders: 'Content-Range,X-Content-Range',
+  allowedHeaders: 'Content-Type,Authorization'
+}));
+app.use(cors({
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  exposedHeaders: ['Content-Range', 'X-Content-Range'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
+
+app.use(cors({
+  origin: ["http://34.122.221.120/", "http://localhost:80"]
 }))
 
 // set up ejs view engine 
@@ -178,23 +190,9 @@ console.log(sql);
 app.get('/search_zipcode', function(req, res) {
   var zipcode  = req.query.zipcode == undefined? 61801: decodeURIComponent(req.query.zipcode ) ;   
 
-    var sql = `
-  (
-  select distinct c.CompanyName,Zipcode 
-  from CompanyInfos as c 
-  left join TempRanks as t on c.CompanyId = t.CompanyId natural join Locations
-  where abs((zipcode- ${zipcode} ))<50 order by abs((zipcode- ${zipcode})) asc
-  limit 1
-  )
-  union 
-  (SELECT distinct CompanyName, l.Zipcode FROM CompanyInfos as c 
-  left join Locations as l on c.LocationID = l.LocationId
-  order by abs(zipcode- ${zipcode}) asc
-  limit 10
-  )
-  ; `;
+    var sql = `call SP_ZIP(${zipcode})`;
 
-console.log(sql);
+  console.log(sql);
   connection.query(sql, function(err, result) {
     if (err) {
       res.send(err)
@@ -261,39 +259,52 @@ connection.query(sql, function(err, result) {
 });
 
 app.get('/search', function(req, res) {
-  var CompanyName = req.query.CompanyName == undefined ? 'apple' : decodeURIComponent (req.query.CompanyName) ;  
-  var zipcode = req.query.zipcode  == undefined ? 'apple' : decodeURIComponent (req.query.zipcode ) ;  
+  var CompanyName = req.query.CompanyName == undefined ? '' : decodeURIComponent (req.query.CompanyName) ;  
+  var zipcode = req.query.zipcode ? 'apple' : decodeURIComponent (req.query.zipcode ) ;  
   var jobtitle= req.query.jobtitle == undefined ? 'apple' : decodeURIComponent (req.query.jobtitle) ;  
   
-  
-  var sql = `select companyname, companyid , state , city , street , zipcode, JobTitle  
-  from (CompanyInfos natural join Locations) natural join Releases natural join Jobs
-  where CompanyName like '%${CompanyName}%' 
-  limit 100`
-console.log(sql);
-  connection.query(sql, function(err, result) {
-    if (err) {
-      res.send(err)
-      return;
-    }
-    res.send( Object.assign({}, result) )
+  if (CompanyName  != undefined)
+  {
+    res.redirect(`/search_company?CompanyName=${CompanyName}`)
+  }
+  if ( zipcode != undefined)
+  {
+    res.redirect(`/search_zipcode?zipcode=${zipcode}`)
+  }
+
+  if ( jobtitle != undefined)
+  {
+    res.redirect(`/search_keyword?jobtitle=${jobtitle}`)
+  }
+
+
+  // var sql = `select companyname, companyid , state , city , street , zipcode, JobTitle  
+  // from (CompanyInfos natural join Locations) natural join Releases natural join Jobs
+  // where CompanyName like '%${CompanyName}%' 
+  // limit 100`
+
+  // console.log(sql);
+  // connection.query(sql, function(err, result) {
+  //   if (err) {
+  //     res.send(err)
+  //     return;
+  //   }
+  //   res.send( Object.assign({}, result) )
     
-  });
+  // });
 });
 
 
-// advanced query II
+
+// store procedure II
 app.get('/search_keyword', function(req, res) {
 
-  var keyword = req.query.jobtitle == null? "software" : decodeURIComponent(req.query.jobtitle);
+  var jobtitle = req.query.jobtitle == null? "software" : decodeURIComponent(req.query.jobtitle);
 
-  var sql = 'select max(CompanyId) as CompanyId, CompanyName, count(JobTitle) as H1B_counts ' +
-      'from CompanyInfos natural join Releases natural join Jobs ' +
-      `where JobTitle like '%${keyword}%' ` +
-      'group by CompanyName limit 100' ;
+  var sql = `call SP_JOB(${jobtitle})` ;
 
-console.log(sql);
-connection.query(sql, function(err, result) {
+  console.log(sql);
+  connection.query(sql, function(err, result) {
   if (err) {
     res.send(err)
     return;

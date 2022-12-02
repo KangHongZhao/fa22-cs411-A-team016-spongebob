@@ -29,7 +29,7 @@ const Main = () => {
 
 
 	const [data, setData] = useState({
-		UserId: "",
+		UserId : localStorage.getItem("UserKey"),
 		NewPassword: "",
 	});
 	const [error, setError] = useState("");
@@ -349,13 +349,6 @@ const start = () => {
 							:
 										<form onSubmit={handleSubmit}>
 										<h1>Personal Information</h1>
-										<input
-											type="UserId"
-											placeholder="UserId"
-											name="UserId"
-											onChange={handleChange}
-											value={data.UserId}
-										/>
 										<input
 											type="NewPassword"
 											placeholder="NewPassword"
