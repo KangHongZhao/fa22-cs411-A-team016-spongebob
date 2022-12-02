@@ -229,9 +229,10 @@ connection.query(sql, function(err, result) {
 
 // delete
 app.get('/delete_fav', function(req, res) {
-  var favid = req.query.FavoriteId == null? 5002 : decodeURIComponent(req.query.FavoriteId);
+  var companyid = req.query.CompanyId == null? 5002 : decodeURIComponent(req.query.CompanyId);
+  var userid = req.query.UserId == null? 5002 : decodeURIComponent(req.query.UserId);
 
-  var sql = `DELETE FROM Favorites WHERE FavoriteId = '${favid}' `;
+  var sql = `DELETE FROM Favorites WHERE UserId = '${userid}' AND CompanyId = '${companyid}'  `;
  
 console.log(sql);
 connection.query(sql, function(err, result) {
@@ -259,6 +260,23 @@ connection.query(sql, function(err, result) {
   res.redirect('/delete_success');
 });
 
+});
+
+app.get('/search', function(req, res) {
+  var CompanyName = req.query.CompanyName == undefined ? 'apple' : decodeURIComponent (req.query.CompanyName) ;  
+  var zipcode = req.query.zipcode  == undefined ? 'apple' : decodeURIComponent (req.query.zipcode ) ;  
+  var jobtitle= req.query.jobtitle == undefined ? 'apple' : decodeURIComponent (req.query.jobtitle) ;  
+  
+  var sql = ``
+console.log(sql);
+  connection.query(sql, function(err, result) {
+    if (err) {
+      res.send(err)
+      return;
+    }
+    res.send( Object.assign({}, result) )
+    
+  });
 });
 
 

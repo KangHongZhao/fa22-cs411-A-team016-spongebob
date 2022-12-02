@@ -4,6 +4,8 @@ import { BrowserRouter } from "react-router-dom";
 import App from "./App";
 import reportWebVitals from './reportWebVitals';
 import 'antd/dist/antd.css'
+import 'ant-design-pro/dist/ant-design-pro.css'; // 统一引入样式
+
 
 ReactDOM.render(
 	<React.StrictMode>

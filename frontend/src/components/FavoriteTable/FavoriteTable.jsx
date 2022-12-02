@@ -1,6 +1,11 @@
 import React,{useState} from 'react';
 import { Layout,Table,Menu, Button} from 'antd';
+import axios from 'axios';
 
+
+const client = axios.create({
+  baseURL: "http://localhost:80/"
+})
 
 export const FavoriteTab = () =>{
     useState([]);
@@ -53,7 +58,7 @@ export const FavoriteTab = () =>{
 		},
 		{
 		  title: 'JobTitle',
-		  dataIndex: 'jobtitle',
+		  dataIndex: 'JobTitle',
 		  align:'center',
 		  width:150
 	  
@@ -70,45 +75,47 @@ export const FavoriteTab = () =>{
         street:"708 Sth northe adafahdfuiosdhafiu",
         zipcode:61820,
         JobTitle:"SDE"
-    },
-    {
-      key:2,
-      companyname:"CNA",
-      companyid:1,
-      state:"Illinois",
-      city:"Champaign",
-      street:"708 Sth northe adafahdfuiosdhafiu",
-      zipcode:61820,
-      JobTitle:"SDE"
-  },
-  {
-    key:3,
-    companyname:"CNA",
-    companyid:2,
-    state:"Illinois",
-    city:"Champaign",
-    street:"708 Sth northe adafahdfuiosdhafiu",
-    zipcode:61820,
-    JobTitle:"SDE"
-},
-{
-  key:4,
-  companyname:"CNA",
-  companyid:3,
-  state:"Illinois",
-  city:"Champaign",
-  street:"708 Sth northe adafahdfuiosdhafiu",
-  zipcode:61820,
-  JobTitle:"SDE"
-}   
+        },
+        {
+          key:2,
+          companyname:"CNA",
+          companyid:1,
+          state:"Illinois",
+          city:"Champaign",
+          street:"708 Sth northe adafahdfuiosdhafiu",
+          zipcode:61820,
+          JobTitle:"SDE"
+          },
+          {
+            key:3,
+            companyname:"CNA",
+            companyid:2,
+            state:"Illinois",
+            city:"Champaign",
+            street:"708 Sth northe adafahdfuiosdhafiu",
+            zipcode:61820,
+            JobTitle:"SDE"
+        },
+        {
+          key:4,
+          companyname:"CNA",
+          companyid:3,
+          state:"Illinois",
+          city:"Champaign",
+          street:"708 Sth northe adafahdfuiosdhafiu",
+          zipcode:61820,
+          JobTitle:"SDE"
+        }   
 ]);
 
 const start = () => {
-	alert(selectedRowKeys);
-	for (let index in selectedRowKeys){
-		let tmp = companyInfo[index].JobTitle;
-		alert(tmp)
-	}
+	// alert(selectedRowKeys);
+	// for (let index in selectedRowKeys){
+	// 	// let tmp = companyInfo[index].JobTitle;
+	// 	// alert(tmp)
+	// }
+  deleteCompanyInfo();
+
 	setLoading(true);
 	// ajax request after empty completing
 	setTimeout(() => {
@@ -116,23 +123,54 @@ const start = () => {
 	  setLoading(false);
 	}, 1000);
   };
+
   const onSelectChange = (newSelectedRowKeys) => {
 	console.log('selectedRowKeys changed: ', newSelectedRowKeys);
 	setSelectedRowKeys(newSelectedRowKeys);
   };
+
   const rowSelection = {
 	selectedRowKeys,
 	onChange: onSelectChange,
   };
+
   const hasSelected = selectedRowKeys.length > 0;
 
+  const deleteCompanyInfo = async () =>{
+    try {
+        // await client.delete(`/${id}`);
+
+        // alert(selectedRowKeys);
+        let userid = localStorage.getItem("");
+        
+
+        // const cur= companyInfo.filter(info => info.key !== );
+        // console.log(cur);
+        
+      let cur = companyInfo;
+      for (let index in selectedRowKeys){
+        let id = companyInfo.filter(item => item.key === selectedRowKeys[index]).companyid;
+        await client.post(`/delete_fav?CompanyId=${encodeURIComponent(id)}&UserId=${encodeURIComponent(userid)}`);
+        cur = companyInfo.filter(item => item.key !== selectedRowKeys[index])
+      }
+
+      setCompnayInfo([...cur])
 
 
-const handlenewSubmit = (values)=>{
-//   submitCompanyName(values.companyname);
-//   submitZipcode(values.zipcode);
-//   submitJobTitle(values.jobtitle)
+    } catch (error) {
+        
+    }
+
 }
+
+
+// const handlenewSubmit = (values)=>{
+// //   submitCompanyName(values.companyname);
+// //   submitZipcode(values.zipcode);
+// //   submitJobTitle(values.jobtitle)
+// }
+
+
 
 
 return(
@@ -158,8 +196,8 @@ return(
            bordered='true'
             rowSelection={rowSelection} columns={columns} dataSource={companyInfo} hideOnSinglePage={true} size={'small'}
             pagination = {{
-              defaultCurrent: 6 ,
-              total:500,
+              defaultCurrent: 10 ,
+              total:companyInfo.length,
               style:{ textAlign:'center', marginTop: '16px',size:'5px',justifyContent:'flex-end ' },
 
             }}

@@ -8,7 +8,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 import { SearchOutlined,UserOutlined } from '@ant-design/icons';
 
-import { Layout, Button, Form, Input,Table,Pagination} from 'antd';
+import { Layout, Button, Form, Input,Table} from 'antd';
 const { Header, Content, Footer } = Layout;
 
 
@@ -60,7 +60,7 @@ const columns = [
   },
   {
     title: 'JobTitle',
-    dataIndex: 'jobtitle',
+    dataIndex: 'JobTitle',
     align:'center',
     width:150
 
@@ -95,44 +95,44 @@ const CompanyInfo = () =>{
       street:"708 Sth northe adafahdfuiosdhafiu",
       zipcode:61820,
       JobTitle:"SDE"
+    },
+    {
+      key:3,
+      companyname:"CNA",
+      companyid:2,
+      state:"Illinois",
+      city:"Champaign",
+      street:"708 Sth northe adafahdfuiosdhafiu",
+      zipcode:61820,
+      JobTitle:"SDE"
   },
   {
-    key:3,
+    key:4,
     companyname:"CNA",
-    companyid:2,
+    companyid:3,
     state:"Illinois",
     city:"Champaign",
     street:"708 Sth northe adafahdfuiosdhafiu",
     zipcode:61820,
     JobTitle:"SDE"
-},
-{
-  key:4,
-  companyname:"CNA",
-  companyid:3,
-  state:"Illinois",
-  city:"Champaign",
-  street:"708 Sth northe adafahdfuiosdhafiu",
-  zipcode:61820,
-  JobTitle:"SDE"
-}   
+  }   
 ]);
-    const [zipCompany, setZipCompany] = useState([
-        {
-            companyname:"CNA",
-            zipcode:61820
-        }
-    ])
+    // const [zipCompany, setZipCompany] = useState([
+    //     {
+    //         companyname:"CNA",
+    //         zipcode:61820
+    //     }
+    // ])
 
 
 
-    const [jobCompany, setjobCompany] = useState([
-        {        
-            companyId: 1,
-            companyname:"CNA",
-            h1b_counts:10
-        }
-    ])
+    // const [jobCompany, setjobCompany] = useState([
+    //     {        
+    //         companyId: 1,
+    //         companyname:"CNA",
+    //         h1b_counts:10
+    //     }
+    // ])
 
 const [error, setError] = React.useState(null);
 
@@ -143,127 +143,116 @@ const jobTitlePlaceholder="Please input your job title";
 
 if (error) return `Error: ${error.message}`;
 
-    const submitCompanyName = async (formdata) => {
-		try {
-            // alert(formdata)
-            // alert(`/${formdata}`);
+  //   const submitCompanyName = async (formdata) => {
+	// 	try {
 
-			      // const res = await client.get("/test.json");
-            // const res = await client.get(`/search?${formdata}`);
-            const res = await client.get(`/search_company?CompanyName=${encodeURIComponent(formdata)}`);
-            console.log(res.data);
-            const temp = [];
-            for (const [k,v] of Object.entries(res.data)){
-                temp.push(v);
-            }
-            const tmp=[];
+  //           // alert(formdata)
+  //           // alert(`/${formdata}`);
 
-            for (let index = 0; index < Math.min(temp.length, 5); index++) {
-                tmp.push(temp[index]);                
-            }
+	// 		      // const res = await client.get("/test.json");
+  //           // const res = await client.get(`/search?${formdata}`);
+  //           const res = await client.get(`/search_company?CompanyName=${encodeURIComponent(formdata)}`);
+  //           console.log(res.data);
+  //           const temp = [];
+  //           for (const [k,v] of Object.entries(res.data)){
+  //               temp.push(v);
+  //           }
+  //           const tmp=[];
 
-            setCompnayInfo(tmp);
-            // setCompnayInfo(res.data);
+  //           for (let index = 0; index < Math.min(temp.length, 5); index++) {
+  //               tmp.push(temp[index]);                
+  //           }
 
-		} catch (error) {
-			if (
-				error.response &&
-				error.response.status >= 400 &&
-				error.response.status <= 500
-			) {
-				setError(error.response.data.message);
-			}
-		}
-	};
+  //           setCompnayInfo(tmp);
+  //           // setCompnayInfo(res.data);
 
-    const submitZipcode = async (formdata) => {
-		try {
-            // alert(formdata)
-            // alert(`/${formdata}`);
-			// const res = await client.get("/test1.json");
-            const res = await client.get(`/search_zipcode?zipcode=${encodeURIComponent(formdata)}`);
+	// 	} catch (error) {
+	// 		if (
+	// 			error.response &&
+	// 			error.response.status >= 400 &&
+	// 			error.response.status <= 500
+	// 		) {
+	// 			setError(error.response.data.message);
+	// 		}
+	// 	}
+	// };
 
-            const temp = [];
-            for (const [k,v] of Object.entries(res.data)){
-                temp.push(v);
-            }
-            const tmp=[];
+  //   const submitZipcode = async (formdata) => {
+	// 	try {
+  //           // alert(formdata)
+  //           // alert(`/${formdata}`);
+	// 		// const res = await client.get("/test1.json");
+  //           const res = await client.get(`/search_zipcode?zipcode=${encodeURIComponent(formdata)}`);
 
-            for (let index = 0; index < Math.min(temp.length, 5); index++) {
-                tmp.push(temp[index]);
+  //           const temp = [];
+  //           for (const [k,v] of Object.entries(res.data)){
+  //               temp.push(v);
+  //           }
+  //           const tmp=[];
+
+  //           for (let index = 0; index < Math.min(temp.length, 5); index++) {
+  //               tmp.push(temp[index]);
                 
-            }            
+  //           }            
 
-            setZipCompany(tmp);
+  //           setZipCompany(tmp);
 
-		} catch (error) {
-			if (
-				error.response &&
-				error.response.status >= 400 &&
-				error.response.status <= 500
-			) {
-				setError(error.response.data.message);
-			}
-		}
-	};
+	// 	} catch (error) {
+	// 		if (
+	// 			error.response &&
+	// 			error.response.status >= 400 &&
+	// 			error.response.status <= 500
+	// 		) {
+	// 			setError(error.response.data.message);
+	// 		}
+	// 	}
+	// };
 
-    const submitJobTitle = async (formdata) => {
-		try {
-            // alert(formdata)
-            // alert(`/${formdata}`);
+  //   const submitJobTitle = async (formdata) => {
+	// 	try {
+  //           // alert(formdata)
+  //           // alert(`/${formdata}`);
 
-			// const res = await client.get("/test2.json");
-            const res = await client.get(`/search_keyword?jobtitle=${encodeURIComponent(formdata)}`);
+	// 		// const res = await client.get("/test2.json");
+  //           const res = await client.get(`/search_keyword?jobtitle=${encodeURIComponent(formdata)}`);
 
-            const temp = [];
-            for (const [k,v] of Object.entries(res.data)){
-                temp.push(v);
-            }
-            const tmp=[];
+  //           const temp = [];
+  //           for (const [k,v] of Object.entries(res.data)){
+  //               temp.push(v);
+  //           }
+  //           const tmp=[];
 
-            for (let index = 0; index < Math.min(temp.length, 5); index++) {
-                tmp.push(temp[index]);
-            }                  
-            setjobCompany(tmp);
+  //           for (let index = 0; index < Math.min(temp.length, 5); index++) {
+  //               tmp.push(temp[index]);
+  //           }                  
+  //           setjobCompany(tmp);
 
-		} catch (error) {
-			if (
-				error.response &&
-				error.response.status >= 400 &&
-				error.response.status <= 500
-			) {
-				setError(error.response.data.message);
-			}
-		}
-	};
+	// 	} catch (error) {
+	// 		if (
+	// 			error.response &&
+	// 			error.response.status >= 400 &&
+	// 			error.response.status <= 500
+	// 		) {
+	// 			setError(error.response.data.message);
+	// 		}
+	// 	}
+	// };
 
 
-    const deleteCompanyInfo = async (id) =>{
-        try {
-            // await client.delete(`/${id}`);
-            alert(id);
-            const res =await client.post(`/delete_company?CompanyId=${encodeURIComponent(id)}`);
-            const cur= companyInfo.filter(info => info.companyid !== id);
-            setCompnayInfo(cur);
-        } catch (error) {
-            
-        }
 
-    }
 
 
 
     
       const start = () => {
-        alert(selectedRowKeys);
-        for (let index in selectedRowKeys){
-            let tmp = companyInfo[index].JobTitle;
-            alert(tmp)
-        }
+
+        addFavorite();
+
+
         setLoading(true);
-        // ajax request after empty completing
+        // // ajax request after empty completing
         setTimeout(() => {
-          setSelectedRowKeys([]);
+          // setSelectedRowKeys([]);
           setLoading(false);
         }, 1000);
       };
@@ -278,11 +267,56 @@ if (error) return `Error: ${error.message}`;
       const hasSelected = selectedRowKeys.length > 0;
 
 
+      const addFavorite = async ()=>{
+        alert(selectedRowKeys);
+        let userid = localStorage.getItem("");
+        for (let index in selectedRowKeys){
+          let id = companyInfo.filter(item => item.key === selectedRowKeys[index]).companyid;
+          await client.post(`/insertFav?CompanyId=${encodeURIComponent(id)}&UserId=${encodeURIComponent(userid)}`);
+          // cur = companyInfo.filter(item => item.key !== selectedRowKeys[index])
+        }
+        // alert(a)
+      }
 
-    const handlenewSubmit = (values)=>{
-      submitCompanyName(values.companyname);
-      submitZipcode(values.zipcode);
-      submitJobTitle(values.jobtitle)
+    const handlenewSubmit = async (values)=>{
+      try {
+        const CompanyName = values.companyname;
+        const zipcode = values.zipcode ;
+        const jobtitle =  values.jobtitle ;
+        // const zipcode = values.zipcode == undefined ? -9999: values.zipcode;
+        // const jobtitle =  values.jobtitle == undefined ? -9999: values.jobtitle;
+      //  alert(CompanyName)
+      //   alert(zipcode)
+      //   alert(jobtitle)
+
+        const res = await client.get(`/search?CompanyName=${encodeURIComponent(CompanyName)}&zipcode=${encodeURIComponent(zipcode)}&jobtitle=${encodeURIComponent(jobtitle)}`);
+        console.log(res.data);
+        const temp = [];
+        for (const [k,v] of Object.entries(res.data)){
+            temp.push(v);
+        }
+        const tmp=[];
+  
+        for (let index = 0; index < Math.min(temp.length, 5); index++) {
+            tmp.push(temp[index]);                
+        }
+  
+        setCompnayInfo(tmp);
+        
+      } catch (error) {
+        if (
+          error.response &&
+          error.response.status >= 400 &&
+          error.response.status <= 500
+        ) {
+          setError(error.response.data.message);
+        }
+      }
+
+
+      // submitCompanyName(values.companyname);
+      // submitZipcode(values.zipcode);
+      // submitJobTitle(values.jobtitle)
     }
 
     return(
@@ -356,8 +390,8 @@ if (error) return `Error: ${error.message}`;
                        bordered='true'
                         rowSelection={rowSelection} columns={columns} dataSource={companyInfo} hideOnSinglePage={true} size={'small'}
                         pagination = {{
-                          defaultCurrent: 6 ,
-                          total:500,
+                          defaultCurrent: 10 ,
+                          total:companyInfo.length,
                           style:{ textAlign:'center', marginTop: '16px',size:'5px',justifyContent:'flex-end ' },
 
                         }}

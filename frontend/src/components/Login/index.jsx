@@ -24,6 +24,9 @@ const Login = () => {
 				alert("wrong email or password");
                 console.log(res.length);
 			} else {
+				localStorage.setItem("userkey",res[0].UserId);
+				let id = localStorage.getItem("userkey");
+				alert(id)
 				navigate("/Main");
 			}
 		} catch (error) {
