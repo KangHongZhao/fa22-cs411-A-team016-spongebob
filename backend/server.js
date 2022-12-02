@@ -30,7 +30,7 @@ connection.connect;
 
 var app = express();
 app.use(cors({
-  origin: "http://34.122.221.120:3000/"
+  origin: ["http://34.122.221.120/", "http://localhost:80"]
 }))
 
 // set up ejs view engine 
