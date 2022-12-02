@@ -29,6 +29,18 @@ connection.connect;
 
 
 var app = express();
+
+app.use(cors({
+  methods: 'GET,POST,PUT',
+  exposedHeaders: 'Content-Range,X-Content-Range',
+  allowedHeaders: 'Content-Type,Authorization'
+}));
+app.use(cors({
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  exposedHeaders: ['Content-Range', 'X-Content-Range'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
+
 app.use(cors({
   origin: ["http://34.122.221.120/", "http://localhost:80"]
 }))
