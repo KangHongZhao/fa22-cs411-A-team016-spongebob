@@ -7,8 +7,8 @@ BEGIN
 	
 	DECLARE cur CURSOR FOR 
 	(select CompanyName, count(CompanyName) as num_fav
-	from CompanyInfos natural join Locations
-	where abs(zipcode- var_zip )<100 
+	from CompanyInfos natural join Locations natural join Favorites
+	where abs(zipcode- var_zip)<100 
 	group by CompanyName);
 	
 	DECLARE continue HANDLER FOR NOT FOUND SET finished = 1;
