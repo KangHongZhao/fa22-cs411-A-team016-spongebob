@@ -120,8 +120,7 @@ const Main = () => {
 		},
 	  ];
 
-	  const [companyInfo, setCompnayInfo] = useState([  
-]);
+	  const [companyInfo, setCompnayInfo] = useState([ ]);
 
 const start = () => {
 	// alert(selectedRowKeys);
@@ -164,13 +163,65 @@ const start = () => {
         // console.log(cur);
         
       let cur = companyInfo;
-      for (let index in selectedRowKeys){
-        let id = companyInfo.filter(item => item.key === selectedRowKeys[index]).companyid;
-        await client.post(`/delete_fav?CompanyId=${encodeURIComponent(id)}&UserId=${encodeURIComponent(userid)}`);
-        cur = companyInfo.filter(item => item.key !== selectedRowKeys[index])
-      }
+	  console.log(cur)
 
-      setCompnayInfo([...cur])
+	//   let tmp = [];
+	//   companyInfo.forEach(myFunction);
+	//   const myFunction =(value, index) =>{
+	// 	if (value.key in selectedRowKeys){
+	// 		client.post(`/delete_fav?CompanyId=${encodeURIComponent(value.companyid)}&UserId=${encodeURIComponent(userid)}`);
+	// 	}
+	// 	if (!(value.key in selectedRowKeys)) {
+	// 		tmp.push(value)
+	// 	}
+	//   }
+	//   alert(tmp)
+
+    //   for (let index in companyInfo){
+	// 	if ( index.key in selectedRowKeys){
+	// 		await client.post(`/delete_fav?CompanyId=${encodeURIComponent(index.companyid)}&UserId=${encodeURIComponent(userid)}`);
+	// 		cur = companyInfo.filter(item => item.key !== selectedRowKeys[index])
+
+	// 	}
+
+		
+    //     // let id = companyInfo.filter(item => item.key === selectedRowKeys[index]).companyid;
+    //   }
+	//   console.log(cur)
+
+	// 	var newArray = companyInfo.filter(function (el) {
+	// 	return !(el.key in selectedRowKeys)
+	//   });
+	//   console.log(newArray)
+		let store = [];
+		let tmp = [];
+		for (let idx of selectedRowKeys){
+			cur.forEach((value,index)=>{
+				if (idx === value.key){
+					// alert(value.companyid)
+					// client.post(`/delete_fav?CompanyId=${encodeURIComponent(value.companyid)}&UserId=${encodeURIComponent(userid)}`);
+					//  let res = cur.filter(function(el) { return el.key !== idx; }); 
+					 store.push(value.companyid)
+					// console.log(res)
+
+				} else{
+					tmp.push(value);
+				}
+			})
+		}
+
+	
+		console.log(tmp)
+
+		for (let element in store){	
+	
+		await client.post(`/delete_fav?CompanyId=${encodeURIComponent(store[element])}&UserId=${encodeURIComponent(userid)}`);
+		}
+
+
+
+
+      setCompnayInfo([...tmp])
 
 
     } catch (error) {
@@ -178,16 +229,6 @@ const start = () => {
     }
 
 }
-
-
-
-
-
-
-
-
-
-
 
 
 	return (
@@ -213,12 +254,30 @@ const start = () => {
 							key: '2',
 							icon: <UserOutlined />,
 							label: 'Favorite Companies',
-							onTitleClick: async () =>{
+							onClick:async ()=>{
 								let id = localStorage.getItem("UserKey");
-								alert(id)
+								// alert(id)
+								// alert(`/getFav?UserId=${encodeURIComponent(id)}`)
 								const res = await client.get(`/getFav?UserId=${encodeURIComponent(id)}`);
-								console.log(res)
-							}
+								// console.log(res)
+								// setCompnayInfo(res.data)
+								const temp = [];
+								let i = 1;
+								for (const [k,v] of Object.entries(res.data)){
+									v['key'] = i;
+									i +=1;
+									temp.push(v);
+								}
+								const tmp=[];
+						  
+								for (let index = 0; index <temp.length; index++) {
+									tmp.push(temp[index]);                
+								}
+								console.log(tmp)
+								setCompnayInfo(tmp);
+
+							},
+
 							}
 
 						]}

@@ -129,12 +129,10 @@ app.post('/signup', function(req,res){
 
 app.get('/getFav', function (req, res) {
   var UserId = req.query.UserId  == null ? 1 : decodeURIComponent(req.query.UserId );
-  var sql =` select FavoriteId, UserId, CompanyId 
-  from Favorites 
-  where UserId = ${UserId}
-  order by FavoriteId
-  `
-
+  var sql =`select companyname, companyid , state , city , street , zipcode, JobTitle  
+  from (CompanyInfos as c natural join Locations) natural join Releases natural join Jobs
+  where c.companyid in (select CompanyId from Favorites where UserId = '${UserId}')`
+console.log(sql)
   connection.query(sql, function(err, result){
     if (err) {
       res.send(err)
@@ -155,7 +153,7 @@ app.post('/insertFav', function(req,res){
       res.send(err)
       return;
       }
-      //res.send( Object.assign({}, results[0]); )
+      res.send( Object.assign({},result) )
     })
   });
 
@@ -228,7 +226,7 @@ connection.query(sql, function(err, result) {
 });
 
 // delete
-app.get('/delete_fav', function(req, res) {
+app.post('/delete_fav', function(req, res) {
   var companyid = req.query.CompanyId == null? 5002 : decodeURIComponent(req.query.CompanyId);
   var userid = req.query.UserId == null? 5002 : decodeURIComponent(req.query.UserId);
 

@@ -272,12 +272,40 @@ if (error) return `Error: ${error.message}`;
         let userid = localStorage.getItem("UserKey");
         let id = companyInfo;
         console.log(id);
-        for (let index in selectedRowKeys){
-           id = companyInfo.filter(item => item.key !== selectedRowKeys[index])
+        // console.log(selectedRowKeys)
+        // for (let index in selectedRowKeys){
+        //   // for ( let cid in companyInfo){
+        //   //   // alert(cid)
+        //   //   if (selectedRowKeys[index] === cid.companyid){
+        //   //     alert(cid.companyid);
+        //   //     id.push(cid.companyid);
+        //   //   }
+        //   // }
+          
+        //    id = id.filter(item => item.key === selectedRowKeys[index])
+        // }
+        console.log(selectedRowKeys)
+
+
+        var newArray = id.filter(function (el) {
+          return (el.key in selectedRowKeys)
+        });
+        console.log(newArray)
+
+        let store = [];
+        for (let idx of selectedRowKeys){
+          id.forEach((value,index)=>{
+            if (idx === value.key){
+              // alert(value.companyid)
+              // client.post(`/delete_fav?CompanyId=${encodeURIComponent(value.companyid)}&UserId=${encodeURIComponent(userid)}`);
+              //  let res = id.filter(function(el) { return el.key !== idx; }); 
+               store.push(value.companyid)
+            }
+          })
         }
-        for ( let index in id ){
-          let  idx = id[index].companyid
-          await client.post(`/insertFav?CompanyId=${encodeURIComponent(idx)}&UserId=${encodeURIComponent(userid)}`);
+        // console.log(store)
+        for ( let index of store ){
+          await client.post(`/insertFav?CompanyId=${encodeURIComponent(index)}&UserId=${encodeURIComponent(userid)}`);
 
         }
         // for (int  )
