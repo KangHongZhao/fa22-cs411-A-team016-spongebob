@@ -37,5 +37,5 @@ BEGIN
   
         close cur;
 
-        select * from res_Table;
+        select * from res_Table order by Fav_Num desc limit 100;
 END

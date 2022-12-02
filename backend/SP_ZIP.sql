@@ -7,7 +7,7 @@ BEGIN
 	
 	DECLARE cur CURSOR FOR 
 	(select CompanyName, count(CompanyName) as num_fav
-	from CompanyInfos natural join Locations
+	from CompanyInfos natural join Locations natural join Favorites
 	where abs(zipcode- var_zip )<100 
 	group by CompanyName);
 	
@@ -38,5 +38,5 @@ BEGIN
 
 	close cur;
 
-	select * from res_Table;
+	select * from res_Table order by Fav_Num desc limit 100;
 END
