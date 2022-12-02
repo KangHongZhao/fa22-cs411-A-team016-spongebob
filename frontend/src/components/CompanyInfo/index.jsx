@@ -268,7 +268,7 @@ if (error) return `Error: ${error.message}`;
 
 
       const addFavorite = async ()=>{
-        alert(selectedRowKeys);
+        // alert(selectedRowKeys);
         let userid = localStorage.getItem("UserKey");
         let id = companyInfo;
         console.log(id);
