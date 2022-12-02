@@ -66,6 +66,22 @@ const columns = [
 
   },
 ];
+const columns2 = [
+  {
+    title: 'CompanyName',
+    dataIndex: 'CompanyName',
+    align:'center',
+    width: 150
+  },
+  {
+    title: 'Fav_Num',
+    dataIndex: 'Fav_Num',
+    align:'center',
+    width:150
+
+  },
+
+];
 
 
 
@@ -73,66 +89,12 @@ const CompanyInfo = () =>{
 
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [justify, setJustify] = useState(false) ;
 
   
-    const [companyInfo, setCompnayInfo] = useState([
-        {
-          key:1,
-        companyname:"CNA",
-        companyid:0,
-        state:"Illinois",
-        city:"Champaign",
-        street:"708 Sth northe adafahdfuiosdhafiu",
-        zipcode:61820,
-        JobTitle:"SDE"
-    },
-    {
-      key:2,
-      companyname:"CNA",
-      companyid:1,
-      state:"Illinois",
-      city:"Champaign",
-      street:"708 Sth northe adafahdfuiosdhafiu",
-      zipcode:61820,
-      JobTitle:"SDE"
-    },
-    {
-      key:3,
-      companyname:"CNA",
-      companyid:2,
-      state:"Illinois",
-      city:"Champaign",
-      street:"708 Sth northe adafahdfuiosdhafiu",
-      zipcode:61820,
-      JobTitle:"SDE"
-  },
-  {
-    key:4,
-    companyname:"CNA",
-    companyid:3,
-    state:"Illinois",
-    city:"Champaign",
-    street:"708 Sth northe adafahdfuiosdhafiu",
-    zipcode:61820,
-    JobTitle:"SDE"
-  }   
-]);
-    // const [zipCompany, setZipCompany] = useState([
-    //     {
-    //         companyname:"CNA",
-    //         zipcode:61820
-    //     }
-    // ])
 
-
-
-    // const [jobCompany, setjobCompany] = useState([
-    //     {        
-    //         companyId: 1,
-    //         companyname:"CNA",
-    //         h1b_counts:10
-    //     }
-    // ])
+  
+    const [companyInfo, setCompnayInfo] = useState([]);
 
 const [error, setError] = React.useState(null);
 
@@ -142,108 +104,7 @@ const jobTitlePlaceholder="Please input your job title";
 
 
 if (error) return `Error: ${error.message}`;
-
-  //   const submitCompanyName = async (formdata) => {
-	// 	try {
-
-  //           // alert(formdata)
-  //           // alert(`/${formdata}`);
-
-	// 		      // const res = await client.get("/test.json");
-  //           // const res = await client.get(`/search?${formdata}`);
-  //           const res = await client.get(`/search_company?CompanyName=${encodeURIComponent(formdata)}`);
-  //           console.log(res.data);
-  //           const temp = [];
-  //           for (const [k,v] of Object.entries(res.data)){
-  //               temp.push(v);
-  //           }
-  //           const tmp=[];
-
-  //           for (let index = 0; index < Math.min(temp.length, 5); index++) {
-  //               tmp.push(temp[index]);                
-  //           }
-
-  //           setCompnayInfo(tmp);
-  //           // setCompnayInfo(res.data);
-
-	// 	} catch (error) {
-	// 		if (
-	// 			error.response &&
-	// 			error.response.status >= 400 &&
-	// 			error.response.status <= 500
-	// 		) {
-	// 			setError(error.response.data.message);
-	// 		}
-	// 	}
-	// };
-
-  //   const submitZipcode = async (formdata) => {
-	// 	try {
-  //           // alert(formdata)
-  //           // alert(`/${formdata}`);
-	// 		// const res = await client.get("/test1.json");
-  //           const res = await client.get(`/search_zipcode?zipcode=${encodeURIComponent(formdata)}`);
-
-  //           const temp = [];
-  //           for (const [k,v] of Object.entries(res.data)){
-  //               temp.push(v);
-  //           }
-  //           const tmp=[];
-
-  //           for (let index = 0; index < Math.min(temp.length, 5); index++) {
-  //               tmp.push(temp[index]);
-                
-  //           }            
-
-  //           setZipCompany(tmp);
-
-	// 	} catch (error) {
-	// 		if (
-	// 			error.response &&
-	// 			error.response.status >= 400 &&
-	// 			error.response.status <= 500
-	// 		) {
-	// 			setError(error.response.data.message);
-	// 		}
-	// 	}
-	// };
-
-  //   const submitJobTitle = async (formdata) => {
-	// 	try {
-  //           // alert(formdata)
-  //           // alert(`/${formdata}`);
-
-	// 		// const res = await client.get("/test2.json");
-  //           const res = await client.get(`/search_keyword?jobtitle=${encodeURIComponent(formdata)}`);
-
-  //           const temp = [];
-  //           for (const [k,v] of Object.entries(res.data)){
-  //               temp.push(v);
-  //           }
-  //           const tmp=[];
-
-  //           for (let index = 0; index < Math.min(temp.length, 5); index++) {
-  //               tmp.push(temp[index]);
-  //           }                  
-  //           setjobCompany(tmp);
-
-	// 	} catch (error) {
-	// 		if (
-	// 			error.response &&
-	// 			error.response.status >= 400 &&
-	// 			error.response.status <= 500
-	// 		) {
-	// 			setError(error.response.data.message);
-	// 		}
-	// 	}
-	// };
-
-
-
-
-
-
-    
+   
       const start = () => {
 
         addFavorite();
@@ -256,10 +117,12 @@ if (error) return `Error: ${error.message}`;
           setLoading(false);
         }, 1000);
       };
+
       const onSelectChange = (newSelectedRowKeys) => {
         console.log('selectedRowKeys changed: ', newSelectedRowKeys);
         setSelectedRowKeys(newSelectedRowKeys);
       };
+
       const rowSelection = {
         selectedRowKeys,
         onChange: onSelectChange,
@@ -272,18 +135,6 @@ if (error) return `Error: ${error.message}`;
         let userid = localStorage.getItem("UserKey");
         let id = companyInfo;
         console.log(id);
-        // console.log(selectedRowKeys)
-        // for (let index in selectedRowKeys){
-        //   // for ( let cid in companyInfo){
-        //   //   // alert(cid)
-        //   //   if (selectedRowKeys[index] === cid.companyid){
-        //   //     alert(cid.companyid);
-        //   //     id.push(cid.companyid);
-        //   //   }
-        //   // }
-          
-        //    id = id.filter(item => item.key === selectedRowKeys[index])
-        // }
         console.log(selectedRowKeys)
 
 
@@ -312,33 +163,47 @@ if (error) return `Error: ${error.message}`;
 
         // alert(a)
       }
+      // let countcols ;
 
     const handlenewSubmit = async (values)=>{
       try {
         const CompanyName = values.companyname;
         const zipcode = values.zipcode ;
         const jobtitle =  values.jobtitle ;
-        // const zipcode = values.zipcode == undefined ? -9999: values.zipcode;
-        // const jobtitle =  values.jobtitle == undefined ? -9999: values.jobtitle;
-      //  alert(CompanyName)
-      //   alert(zipcode)
-      //   alert(jobtitle)
+
 
         const res = await client.get(`/search?CompanyName=${encodeURIComponent(CompanyName)}&zipcode=${encodeURIComponent(zipcode)}&jobtitle=${encodeURIComponent(jobtitle)}`);
         console.log(res.data);
         console.log(localStorage.getItem("UserKey"))
+        
+        // justify =  Object.keys(res.data).find(key => res.data[key] === "procedure");
+        // console.log(typeof res.data)
+        setJustify(res.data['procedure']) 
+        console.log(justify)
+        if ( justify){
+          let newdata = Object.assign({},Object.values(res.data)[0]) ;
+          console.log(newdata)
+          res.data = newdata
+        }
+
+        // countcols = Object.keys(Object.values(Object.values(res.data)[0])[0]).length
+        // console.log(countcols)
         const temp = [];
         let i = 1;
         for (const [k,v] of Object.entries(res.data)){
+          if (k !== "procedure"){
             v['key'] = i;
             i +=1;
             temp.push(v);
+          }
+
         }
         const tmp=[];
   
-        for (let index = 0; index < Math.min(temp.length, 5); index++) {
+        for (let index = 0; index < temp.length; index++) {
             tmp.push(temp[index]);                
         }
+        console.log(tmp)
   
         setCompnayInfo(tmp);
         
@@ -352,10 +217,6 @@ if (error) return `Error: ${error.message}`;
         }
       }
 
-
-      // submitCompanyName(values.companyname);
-      // submitZipcode(values.zipcode);
-      // submitJobTitle(values.jobtitle)
     }
 
     return(
@@ -381,10 +242,6 @@ if (error) return `Error: ${error.message}`;
               <Form.Item
                 label="Zip Code:"
                 name="zipcode"
-                // tooltip={{
-                //   title: "This is an optional field",
-                //   icon: <InfoCircleOutlined />
-                // }}
                 className={styles.formitem}
               >
                 <Input placeholder={zipCodePlaceholder} className={styles.inputstyle}   style={{ width: 250 }}/>
@@ -392,10 +249,6 @@ if (error) return `Error: ${error.message}`;
               <Form.Item
                 label="Job Title:"
                 name="jobtitle"
-                // tooltip={{
-                //   title: "This is an optional field",
-                //   icon: <InfoCircleOutlined />
-                // }}
                 className={styles.formitem}
               >
                 <Input placeholder={jobTitlePlaceholder} className={styles.inputstyle} style={{ width: 250 }} />
@@ -406,7 +259,6 @@ if (error) return `Error: ${error.message}`;
                 </Button>
               </Form.Item>
             </Form>        
-            {/* <Form1 handleSubmit={handleSubmit} placeholder={companyInfoPlaceholder} className={styles.companysearch}/> */}
             </div>
                 <div className={styles.tabpag}>
                 <div
@@ -425,17 +277,31 @@ if (error) return `Error: ${error.message}`;
                       {hasSelected ? `Selected ${selectedRowKeys.length} items` : ''}
                     </span>
                   </div>
-                  <Table 
-                       bordered='true'
-                        rowSelection={rowSelection} columns={columns} dataSource={companyInfo} hideOnSinglePage={true} size={'small'}
-                        pagination = {{
-                          defaultCurrent: 10 ,
-                          total:companyInfo.length,
-                          style:{ textAlign:'center', marginTop: '16px',size:'5px',justifyContent:'flex-end ' },
-
-                        }}
-                        className={styles.table}
-                        />      
+                  {
+                    justify === true ? 
+                    <Table 
+                    bordered='true'
+                     rowSelection={rowSelection} columns={columns2} dataSource={companyInfo} hideOnSinglePage={true} size={'small'}
+                     pagination = {{
+                       defaultCurrent: 10 ,
+                       total:companyInfo.length,
+                       style:{ textAlign:'center', marginTop: '16px',size:'5px',justifyContent:'flex-end ' },
+                     }}
+                     className={styles.table}
+                     />     
+                    :
+                    <Table 
+                    bordered='true'
+                     rowSelection={rowSelection} columns={columns} dataSource={companyInfo} hideOnSinglePage={true} size={'small'}
+                     pagination = {{
+                       defaultCurrent: 10 ,
+                       total:companyInfo.length,
+                       style:{ textAlign:'center', marginTop: '16px',size:'5px',justifyContent:'flex-end ' },
+                     }}
+                     className={styles.table}
+                     />     
+                  }
+ 
                   {/* <Pagination simple={true} total={10} className={styles.pagstyle} size={"small"} align={"center"}/> */}
             </div>
           </Content>

@@ -120,7 +120,7 @@ const Main = () => {
 		},
 	  ];
 
-	  const [companyInfo, setCompnayInfo] = useState([ ]);
+	  const [companyInfo, setCompnayInfo] = useState([]);
 
 const start = () => {
 	// alert(selectedRowKeys);
@@ -254,7 +254,7 @@ const start = () => {
 							key: '2',
 							icon: <UserOutlined />,
 							label: 'Favorite Companies',
-							onClick:async ()=>{
+							onClick: async ()=>{
 								let id = localStorage.getItem("UserKey");
 								// alert(id)
 								// alert(`/getFav?UserId=${encodeURIComponent(id)}`)
@@ -274,8 +274,8 @@ const start = () => {
 									tmp.push(temp[index]);                
 								}
 								console.log(tmp)
-								setCompnayInfo(tmp);
-
+								setCompnayInfo([...tmp]);
+								
 							},
 
 							}

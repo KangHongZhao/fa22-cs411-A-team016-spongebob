@@ -258,41 +258,90 @@ connection.query(sql, function(err, result) {
 
 });
 
-app.get('/search', function(req, res) {
-  var CompanyName = req.query.CompanyName == undefined ? '' : decodeURIComponent (req.query.CompanyName) ;  
-  var zipcode = req.query.zipcode ? 'apple' : decodeURIComponent (req.query.zipcode ) ;  
-  var jobtitle= req.query.jobtitle == undefined ? 'apple' : decodeURIComponent (req.query.jobtitle) ;  
+// app.get('/search', function(req, res) {
+//   var CompanyName = req.query.CompanyName == undefined ? '' : decodeURIComponent (req.query.CompanyName) ;  
+//   var zipcode = req.query.zipcode ? 'apple' : decodeURIComponent (req.query.zipcode ) ;  
+//   var jobtitle= req.query.jobtitle == undefined ? 'apple' : decodeURIComponent (req.query.jobtitle) ;  
   
-  if (CompanyName  != undefined)
-  {
-    res.redirect(`/search_company?CompanyName=${CompanyName}`)
-  }
-  if ( zipcode != undefined)
-  {
-    res.redirect(`/search_zipcode?zipcode=${zipcode}`)
-  }
+//   if (CompanyName  != undefined)
+//   {
+//     res.redirect(`/search_company?CompanyName=${CompanyName}`)
+//   }
+//   if ( zipcode != undefined)
+//   {
+//     res.redirect(`/search_zipcode?zipcode=${zipcode}`)
+//   }
 
-  if ( jobtitle != undefined)
-  {
-    res.redirect(`/search_keyword?jobtitle=${jobtitle}`)
-  }
+//   if ( jobtitle != undefined)
+//   {
+//     res.redirect(`/search_keyword?jobtitle=${jobtitle}`)
+//   }
+
+  
 
 
-  // var sql = `select companyname, companyid , state , city , street , zipcode, JobTitle  
-  // from (CompanyInfos natural join Locations) natural join Releases natural join Jobs
-  // where CompanyName like '%${CompanyName}%' 
-  // limit 100`
+//   // var sql = `select companyname, companyid , state , city , street , zipcode, JobTitle  
+//   // from (CompanyInfos natural join Locations) natural join Releases natural join Jobs
+//   // where CompanyName like '%${CompanyName}%' 
+//   // limit 100`
 
-  // console.log(sql);
-  // connection.query(sql, function(err, result) {
-  //   if (err) {
-  //     res.send(err)
-  //     return;
-  //   }
-  //   res.send( Object.assign({}, result) )
+//   // console.log(sql);
+//   // connection.query(sql, function(err, result) {
+//   //   if (err) {
+//   //     res.send(err)
+//   //     return;
+//   //   }
+//   //   res.send( Object.assign({}, result) )
     
-  // });
-});
+//   // });
+// });
+app.get('/search', function(req, res) {
+  // var CompanyId = req.query.CompanyId == null? 5002 : decodeURIComponent(req.query.CompanyId);
+
+    var CompanyName = req.query.CompanyName == null ? -1 : decodeURIComponent (req.query.CompanyName) ;  
+    var zipcode = req.query.zipcode == null ? -1 : decodeURIComponent (req.query.zipcode ) ;  
+    var jobtitle= req.query.jobtitle == null ? -1 : decodeURIComponent (req.query.jobtitle) ;  
+  console.log(CompanyName)
+  console.log(zipcode)
+  console.log(jobtitle)  
+    var procedure  = false;
+
+
+  // console.log()
+    if (CompanyName  !== "undefined" && CompanyName  !== "")
+    {
+    var sql = `select companyname, companyid , state , city , street , zipcode, JobTitle  
+  	from (CompanyInfos natural join Locations) natural join Releases natural join Jobs
+  	where CompanyName like '%${CompanyName}%' 
+    limit 100`;
+    }
+    else if ( zipcode !== "undefined" && zipcode !== "")
+    {
+       var sql = `call SP_ZIP(${zipcode})`;
+  procedure = true;
+    }
+  
+    else if ( jobtitle !== "undefined" && jobtitle !== "")
+    {
+      var sql = `call SP_JOB("${jobtitle}")` ;
+  procedure = true;
+    }
+  
+  
+    console.log(sql);
+    connection.query(sql, function(err, result) {
+        if (err) {
+          res.send(err)
+          return;
+        }
+        res_data = Object.assign({}, result) ;
+        res_data['procedure'] = procedure;
+        res.send(res_data )
+        
+      });
+  });
+
+
 
 
 
